@@ -1,0 +1,3 @@
+rootProject.name='Kotlin_Android_Tutorials'
+include ':udacityTutorial1'
+include ':udacitytutorial2'
