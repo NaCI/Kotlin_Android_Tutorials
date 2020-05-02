@@ -8,61 +8,135 @@
     tools:context=".ColorMyViewsActivity">
 
     <TextView
-        android:id="@+id/textView"
-        style="@android:style/Widget.Holo.Light.TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@color/colorAccent"
-        android:fontFamily="@font/almendra"
-        android:gravity="center"
-        android:padding="@dimen/padding"
-        android:text="canım karıcığımı çok seviyorum ben naci"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
+        android:id="@+id/boxOneText"
+        style="@style/WhiteBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_wide"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:fontFamily="@font/roboto"
+        android:text="@string/box_one"
+        app:layout_constraintDimensionRatio=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/boxTwoText"
+        style="@style/WhiteBox"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/box_two"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/boxOneText" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/boxThreeText"
+        style="@style/WhiteBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/box_three"
+        app:layout_constraintBottom_toTopOf="@+id/boxFourText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/boxTwoText"
+        app:layout_constraintTop_toTopOf="@+id/boxTwoText" />
+
+    <TextView
+        android:id="@+id/boxFourText"
+        style="@style/WhiteBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/box_four"
+        app:layout_constraintBottom_toTopOf="@+id/boxFiveText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/boxTwoText"
+        app:layout_constraintTop_toBottomOf="@+id/boxThreeText" />
+
+    <TextView
+        android:id="@+id/boxFiveText"
+        style="@style/WhiteBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/box_five"
+        app:layout_constraintBottom_toBottomOf="@+id/boxTwoText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/boxTwoText"
+        app:layout_constraintTop_toBottomOf="@+id/boxFourText" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/how_to_play"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/tap_screen_and_buttons"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/boxFiveText"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <Button
+        android:id="@+id/redButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/box_red"
+        app:layout_constraintBaseline_toBaselineOf="@+id/yellowButton"
+        app:layout_constraintEnd_toStartOf="@+id/yellowButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/yellowButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/box_yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/greenButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/redButton"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/greenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/box_green"
+        app:layout_constraintBaseline_toBaselineOf="@+id/yellowButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/yellowButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
