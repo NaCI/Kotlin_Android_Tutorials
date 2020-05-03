@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.naci.udacitytutorial3.databinding.FragmentTitleBinding
@@ -28,9 +27,14 @@ class TitleFragment : Fragment() {
         }
         */
         // Different representation of it
-        binding.playButton.setOnClickListener(
+        /*binding.playButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_gameFragment)
-        )
+        )*/
+        // Usage of safeargs, generated action classes
+        binding.playButton.setOnClickListener { view: View ->
+            view.findNavController()
+                .navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
+        }
         setHasOptionsMenu(true)
         return binding.root
     }

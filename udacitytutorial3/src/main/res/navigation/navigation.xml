@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/titleFragment"
         android:name="com.naci.udacitytutorial3.TitleFragment"
-        android:label="TitleFragment" >
+        android:label="TitleFragment">
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
@@ -17,7 +17,7 @@
         android:id="@+id/gameFragment"
         android:name="com.naci.udacitytutorial3.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" >
+        tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_gameFragment_to_gameWonFragment"
             app:destination="@id/gameWonFragment"
@@ -49,6 +49,12 @@
             app:destination="@id/gameFragment"
             app:popUpTo="@id/titleFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="numQuestions"
+            app:argType="integer" />
+        <argument
+            android:name="numCorrect"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
