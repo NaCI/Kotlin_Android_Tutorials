@@ -6,3 +6,5 @@ UdacityTutorial1 -> Simple Databinding
 UdacityTutorial2 -> ConstraintLayout usages 
 
 UdacityTutorial3 -> Navigation Component
+
+UdacityTutorial4 -> Activity Lifecycle
