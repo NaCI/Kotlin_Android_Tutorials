@@ -20,11 +20,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.udacitytutorial5.R
 import com.example.udacitytutorial5.databinding.GameFragmentBinding
 import timber.log.Timber
@@ -69,6 +69,13 @@ class GameFragment : Fragment() {
             binding.wordText.text = newWord.toString()
         })
 
+        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { hasFinished ->
+            if (hasFinished) {
+                gameFinished()
+                viewModel.onGameFinishCompleted()
+            }
+        })
+
         return binding.root
 
     }
@@ -77,7 +84,8 @@ class GameFragment : Fragment() {
      * Called when the game is finished
      */
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
-        findNavController(this).navigate(action)
+        Toast.makeText(requireActivity(), "Game has finished", Toast.LENGTH_SHORT).show()
+//        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
+//        findNavController(this).navigate(action)
     }
 }

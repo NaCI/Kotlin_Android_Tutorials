@@ -1,5 +1,6 @@
 package com.example.udacitytutorial5.screens.game
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
@@ -7,10 +8,20 @@ import timber.log.Timber
 class GameViewModel : ViewModel() {
 
     // The current word
-    var word = MutableLiveData<String>("")
+    private var _word = MutableLiveData<String>("")
+    // Encapsulation with backing property (Overriding get method)
+    val word : LiveData<String>
+        get() = _word
 
     // The current score
-    var score = MutableLiveData<Int>()
+    private var _score = MutableLiveData<Int>()
+    // Encapsulation with backing property (Overriding get method)
+    val score : LiveData<Int>
+        get() = _score
+
+    private var _eventGameFinish = MutableLiveData<Boolean>(false)
+    val eventGameFinish: LiveData<Boolean>
+        get() = _eventGameFinish
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
@@ -19,7 +30,7 @@ class GameViewModel : ViewModel() {
         Timber.i("GameViewModel created!")
         resetList()
         nextWord()
-        score.value = 0
+        _score.value = 0
     }
 
     /**
@@ -58,22 +69,26 @@ class GameViewModel : ViewModel() {
     private fun nextWord() {
         //Select and remove a word from the list
         if (wordList.isEmpty()) {
-//            gameFinished()
+            _eventGameFinish.value = true
         } else {
-            word.value = wordList.removeAt(0)
+            _word.value = wordList.removeAt(0)
         }
     }
 
     /** Methods for buttons presses **/
 
     fun onSkip() {
-        score.value = score.value?.minus(1)
+        _score.value = score.value?.minus(1)
         nextWord()
     }
 
     fun onCorrect() {
-        score.value = score.value?.plus(1)
+        _score.value = score.value?.plus(1)
         nextWord()
+    }
+
+    fun onGameFinishCompleted() {
+        _eventGameFinish.value = false
     }
 
     override fun onCleared() {
