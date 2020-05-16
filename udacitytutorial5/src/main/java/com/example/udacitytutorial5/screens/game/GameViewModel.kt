@@ -1,5 +1,6 @@
 package com.example.udacitytutorial5.screens.game
 
+import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,21 +8,38 @@ import timber.log.Timber
 
 class GameViewModel : ViewModel() {
 
+    companion object {
+
+        private const val DONE = 0L
+
+        private const val ONE_SECOND = 1000L
+
+        private const val COUNTDOWM_TIME = 60000L
+    }
+
+    private val timer: CountDownTimer
+
     // The current word
     private var _word = MutableLiveData<String>("")
+
     // Encapsulation with backing property (Overriding get method)
-    val word : LiveData<String>
+    val word: LiveData<String>
         get() = _word
 
     // The current score
     private var _score = MutableLiveData<Int>()
+
     // Encapsulation with backing property (Overriding get method)
-    val score : LiveData<Int>
+    val score: LiveData<Int>
         get() = _score
 
     private var _eventGameFinish = MutableLiveData<Boolean>(false)
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
+
+    private var _curentTime = MutableLiveData<Long>(0)
+    val curentTime: LiveData<Long>
+        get() = _curentTime
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
@@ -31,6 +49,18 @@ class GameViewModel : ViewModel() {
         resetList()
         nextWord()
         _score.value = 0
+
+        timer = object : CountDownTimer(COUNTDOWM_TIME, ONE_SECOND) {
+            override fun onFinish() {
+                _curentTime.value = DONE
+                _eventGameFinish.value = true
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                _curentTime.value = (millisUntilFinished / ONE_SECOND)
+            }
+        }
+        timer.start()
     }
 
     /**
@@ -69,10 +99,10 @@ class GameViewModel : ViewModel() {
     private fun nextWord() {
         //Select and remove a word from the list
         if (wordList.isEmpty()) {
-            _eventGameFinish.value = true
-        } else {
-            _word.value = wordList.removeAt(0)
+            resetList()
         }
+        _word.value = wordList.removeAt(0)
+
     }
 
     /** Methods for buttons presses **/
@@ -93,6 +123,7 @@ class GameViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
+        timer.cancel()
         Timber.i("GameViewModel destroyed!")
     }
 }
