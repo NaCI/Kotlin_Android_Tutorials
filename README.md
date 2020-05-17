@@ -8,3 +8,5 @@ UdacityTutorial2 -> ConstraintLayout usages
 UdacityTutorial3 -> Navigation Component
 
 UdacityTutorial4 -> Activity Lifecycle
+
+UdacityTutorial5 -> MVVM Architecture (ViewModel - LiveData - Databinding and Navigation)
