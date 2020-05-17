@@ -1,8 +1,10 @@
 package com.example.udacitytutorial5.screens.game
 
 import android.os.CountDownTimer
+import android.text.format.DateUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
@@ -14,7 +16,7 @@ class GameViewModel : ViewModel() {
 
         private const val ONE_SECOND = 1000L
 
-        private const val COUNTDOWM_TIME = 60000L
+        private const val COUNTDOWM_TIME = 10000L
     }
 
     private val timer: CountDownTimer
@@ -40,6 +42,10 @@ class GameViewModel : ViewModel() {
     private var _curentTime = MutableLiveData<Long>(0)
     val curentTime: LiveData<Long>
         get() = _curentTime
+
+    val currentTimeText = Transformations.map(curentTime) { time ->
+        DateUtils.formatElapsedTime(time)
+    }
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>

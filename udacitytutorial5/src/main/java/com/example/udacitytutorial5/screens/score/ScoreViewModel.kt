@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
-class ScoreViewModel(val finalScore: Int): ViewModel() {
+class ScoreViewModel(finalScore: Int): ViewModel() {
 
     private val _score = MutableLiveData<Int>(finalScore)
     val score: LiveData<Int>
