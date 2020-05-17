@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.example.udacitytutorial5.BuzzType
 import timber.log.Timber
 
 class GameViewModel : ViewModel() {
@@ -14,9 +15,12 @@ class GameViewModel : ViewModel() {
 
         private const val DONE = 0L
 
+        // This is the time when the phone will start buzzing each second
+        private const val COUNTDOWN_PANIC_SECONDS = 10L
+
         private const val ONE_SECOND = 1000L
 
-        private const val COUNTDOWM_TIME = 10000L
+        private const val COUNTDOWM_TIME = 30000L
     }
 
     private val timer: CountDownTimer
@@ -47,6 +51,10 @@ class GameViewModel : ViewModel() {
         DateUtils.formatElapsedTime(time)
     }
 
+    private var _buzzEvent = MutableLiveData<BuzzType>()
+    val buzzEvent: LiveData<BuzzType>
+        get() = _buzzEvent
+
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
 
@@ -59,11 +67,15 @@ class GameViewModel : ViewModel() {
         timer = object : CountDownTimer(COUNTDOWM_TIME, ONE_SECOND) {
             override fun onFinish() {
                 _curentTime.value = DONE
+                _buzzEvent.value = BuzzType.GAME_OVER
                 _eventGameFinish.value = true
             }
 
             override fun onTick(millisUntilFinished: Long) {
                 _curentTime.value = (millisUntilFinished / ONE_SECOND)
+                if (millisUntilFinished / ONE_SECOND <= COUNTDOWN_PANIC_SECONDS) {
+                    _buzzEvent.value = BuzzType.COUNTDOWN_PANIC
+                }
             }
         }
         timer.start()
@@ -125,6 +137,10 @@ class GameViewModel : ViewModel() {
 
     fun onGameFinishCompleted() {
         _eventGameFinish.value = false
+    }
+
+    fun onBuzzCompleted() {
+        _buzzEvent.value = BuzzType.NO_BUZZ
     }
 
     override fun onCleared() {

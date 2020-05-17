@@ -16,16 +16,21 @@
 
 package com.example.udacitytutorial5.screens.game
 
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import com.example.udacitytutorial5.BuzzType
 import com.example.udacitytutorial5.R
 import com.example.udacitytutorial5.databinding.GameFragmentBinding
 import timber.log.Timber
@@ -99,8 +104,31 @@ class GameFragment : Fragment() {
             }
         })
 
+        viewModel.buzzEvent.observe(viewLifecycleOwner, Observer { buzzType ->
+            if (buzzType != BuzzType.NO_BUZZ) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    buzz(buzzType.pattern)
+                }
+                viewModel.onBuzzCompleted()
+            }
+        })
+
         return binding.root
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun buzz(pattern: LongArray) {
+        val buzzer = activity?.getSystemService(Vibrator::class.java)
+
+        buzzer?.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                buzzer.vibrate(VibrationEffect.createWaveform(pattern, -1))
+            } else {
+                //deprecated in API 26
+                buzzer.vibrate(pattern, -1)
+            }
+        }
     }
 
     /**
