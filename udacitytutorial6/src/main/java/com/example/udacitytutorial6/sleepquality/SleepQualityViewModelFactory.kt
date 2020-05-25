@@ -15,3 +15,21 @@
  */
 
 package com.example.udacitytutorial6.sleepquality
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.udacitytutorial6.database.SleepDatabaseDao
+import java.lang.IllegalArgumentException
+
+class SleepQualityViewModelFactory (
+    private val sleepNightKey: Long,
+    private val database: SleepDatabaseDao
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SleepQualityViewModel::class.java)) {
+            return SleepQualityViewModel(sleepNightKey, database) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel Class")
+    }
+
+}
