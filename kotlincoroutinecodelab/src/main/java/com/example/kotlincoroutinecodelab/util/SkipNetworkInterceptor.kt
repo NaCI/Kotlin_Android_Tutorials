@@ -61,7 +61,7 @@ class SkipNetworkInterceptor : Interceptor {
      *
      * Really: sleep for 500ms.
      */
-    private fun pretendToBlockForNetworkRequest() = Thread.sleep(500)
+    private fun pretendToBlockForNetworkRequest() = Thread.sleep(1_000)
 
     /**
      * Generate an error result.

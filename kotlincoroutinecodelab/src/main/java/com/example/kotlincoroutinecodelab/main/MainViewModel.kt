@@ -16,11 +16,18 @@
 
 package com.example.kotlincoroutinecodelab.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.kotlincoroutinecodelab.util.BACKGROUND
 import com.example.kotlincoroutinecodelab.util.singleArgViewModelFactory
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+private const val TAG = "MainViewModel"
 
 /**
  * MainViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
@@ -102,10 +109,12 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
      */
     private fun updateTaps() {
         // TODO: Convert updateTaps to use coroutines
-        tapCount++
-        BACKGROUND.submit {
-            Thread.sleep(1_000)
-            _taps.postValue("${tapCount} taps")
+        viewModelScope.launch {
+            tapCount++
+            Log.d(TAG, "Tap Count : $tapCount")
+            delay(1_000)
+            Log.d(TAG, "We waited 1 long seconds")
+            _taps.postValue("$tapCount taps")
         }
     }
 
@@ -121,8 +130,17 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
      */
     fun refreshTitle() {
         // TODO: Convert refreshTitle to use coroutines
-        _spinner.value = true
-        repository.refreshTitleWithCallbacks(object : TitleRefreshCallback {
+        viewModelScope.launch {
+            try {
+                _spinner.value = true
+                repository.refreshTitle()
+            } catch (error: TitleRefreshError) {
+                _snackBar.value = error.message
+            } finally {
+                _spinner.value = false
+            }
+        }
+        /*repository.refreshTitleWithCallbacks(object : TitleRefreshCallback {
             override fun onCompleted() {
                 _spinner.postValue(false)
             }
@@ -131,6 +149,6 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
                 _snackBar.postValue(cause.message)
                 _spinner.postValue(false)
             }
-        })
+        })*/
     }
 }

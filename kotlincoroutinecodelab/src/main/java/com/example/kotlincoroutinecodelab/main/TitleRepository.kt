@@ -16,9 +16,17 @@
 
 package com.example.kotlincoroutinecodelab.main
 
+import android.text.format.DateUtils
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.example.kotlincoroutinecodelab.util.BACKGROUND
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
+
+private const val TAG = "TitleRepository"
 
 /**
  * TitleRepository provides an interface to fetch a title or request a new one be generated.
@@ -73,6 +81,31 @@ class TitleRepository(val network: MainNetwork, val titleDao: TitleDao) {
                     TitleRefreshError("Unable to refresh title", cause)
                 )
             }
+        }
+    }
+
+    suspend fun refreshTitle() {
+        withContext(Dispatchers.IO) {
+            Log.d(TAG, "Fetch data from network started : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
+            val result = try {
+                network.fetchNextTitle().execute()
+            } catch (cause: Throwable) {
+                throw TitleRefreshError("Houston we have a problem", cause)
+            }
+            Log.d(TAG, "Fetch data from network ended : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
+
+            /**
+             * Yield function checks whether the current job is cancelled, and don't allow the code to resume
+             */
+            yield()
+
+            Log.d(TAG, "Insert data to database started : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
+            if(result.isSuccessful) {
+                titleDao.insertTitle(Title(result.body()!!))
+            } else {
+                throw TitleRefreshError("Unable to refresh title", null)
+            }
+            Log.d(TAG, "Insert data to database ended : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
         }
     }
 }
