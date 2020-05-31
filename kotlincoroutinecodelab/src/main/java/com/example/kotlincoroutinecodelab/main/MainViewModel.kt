@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlincoroutinecodelab.util.BACKGROUND
 import com.example.kotlincoroutinecodelab.util.singleArgViewModelFactory
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -130,7 +131,13 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
      */
     fun refreshTitle() {
         // TODO: Convert refreshTitle to use coroutines
-        viewModelScope.launch {
+
+        launchDataLoad {
+            Log.d(TAG, "launchDataLoad started")
+            repository.refreshTitle()
+        }
+
+        /*viewModelScope.launch {
             try {
                 _spinner.value = true
                 repository.refreshTitle()
@@ -139,7 +146,8 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
             } finally {
                 _spinner.value = false
             }
-        }
+        }*/
+
         /*repository.refreshTitleWithCallbacks(object : TitleRefreshCallback {
             override fun onCompleted() {
                 _spinner.postValue(false)
@@ -150,5 +158,21 @@ class MainViewModel(private val repository: TitleRepository) : ViewModel() {
                 _spinner.postValue(false)
             }
         })*/
+    }
+
+    // suspend lambda
+    // block: suspend () -> Unit
+
+    private fun launchDataLoad(function: suspend () -> Unit): Job {
+        return viewModelScope.launch {
+            try {
+                _spinner.value = true
+                function()
+            } catch (error: TitleRefreshError) {
+                _snackBar.value = error.message
+            } finally {
+                _spinner.value = false
+            }
+        }
     }
 }
