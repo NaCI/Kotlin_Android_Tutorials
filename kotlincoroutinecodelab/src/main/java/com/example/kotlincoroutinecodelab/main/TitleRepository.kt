@@ -21,10 +21,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.example.kotlincoroutinecodelab.util.BACKGROUND
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.yield
+import kotlinx.coroutines.*
 
 private const val TAG = "TitleRepository"
 
@@ -52,13 +49,14 @@ class TitleRepository(val network: MainNetwork, val titleDao: TitleDao) {
 
     // TODO: Add coroutines-based `fun refreshTitle` here
 
+    // Old logic without coroutines
     /**
      * Refresh the current title and save the results to the offline cache.
      *
      * This method does not return the new title. Use [TitleRepository.title] to observe
      * the current tile.
      */
-    fun refreshTitleWithCallbacks(titleRefreshCallback: TitleRefreshCallback) {
+    /*fun refreshTitleWithCallbacks(titleRefreshCallback: TitleRefreshCallback) {
         // This request will be run on a background thread by retrofit
         BACKGROUND.submit {
             try {
@@ -82,9 +80,10 @@ class TitleRepository(val network: MainNetwork, val titleDao: TitleDao) {
                 )
             }
         }
-    }
+    }*/
 
-    suspend fun refreshTitle() {
+    // Old logic with custom coroutines dispatcher without Room & Retrofit Coroutines
+    /*suspend fun refreshTitle() {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "Fetch data from network started : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
             val result = try {
@@ -94,9 +93,9 @@ class TitleRepository(val network: MainNetwork, val titleDao: TitleDao) {
             }
             Log.d(TAG, "Fetch data from network ended : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
 
-            /**
+            *//**
              * Yield function checks whether the current job is cancelled, and don't allow the code to resume
-             */
+             *//*
             yield()
 
             Log.d(TAG, "Insert data to database started : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
@@ -106,6 +105,17 @@ class TitleRepository(val network: MainNetwork, val titleDao: TitleDao) {
                 throw TitleRefreshError("Unable to refresh title", null)
             }
             Log.d(TAG, "Insert data to database ended : ${DateUtils.formatElapsedTime(System.currentTimeMillis() / 1000L)}")
+        }
+    }*/
+
+    suspend fun refreshTitle() {
+        try {
+            val result = withTimeout(5_000) {
+                network.fetchNextTitle()
+            }
+            titleDao.insertTitle(Title(result))
+        } catch (cause: Throwable) {
+            throw TitleRefreshError("Unable to refresh title", cause)
         }
     }
 }

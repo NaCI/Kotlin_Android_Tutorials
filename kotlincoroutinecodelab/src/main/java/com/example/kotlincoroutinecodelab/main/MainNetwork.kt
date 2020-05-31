@@ -18,7 +18,6 @@ package com.example.kotlincoroutinecodelab.main
 
 import com.example.kotlincoroutinecodelab.util.SkipNetworkInterceptor
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -44,7 +43,9 @@ fun getNetworkService() = service
  */
 interface MainNetwork {
     @GET("next_title.json")
-    fun fetchNextTitle(): Call<String>
+    suspend fun fetchNextTitle(): String
+    // We could alse use Result of Retrofit library
+    // fun fetchNextTitle(): Response<String> // Retrofit2 Class
 }
 
 
