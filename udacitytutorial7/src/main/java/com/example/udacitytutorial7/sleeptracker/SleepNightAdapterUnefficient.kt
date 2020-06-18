@@ -21,19 +21,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.udacitytutorial7.R
 import com.example.udacitytutorial7.convertDurationToFormatted
 import com.example.udacitytutorial7.convertNumericQualityToString
 import com.example.udacitytutorial7.database.SleepNight
 
-class SleepNightAdapter :
-    ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
+class SleepNightAdapterUnefficient: RecyclerView.Adapter<SleepNightAdapterUnefficient.ViewHolder>() {
+    var data = listOf<SleepNight>()
+        set(value) {
+            field = value
+            /*
+            Using notifyDataSetChanged method is not efficient
+            It's because notifyDataSetChanged redraw all the items in the list
+            Instead we can use DiffUtil to detect exact changes on the list and update just those items
+             */
+            notifyDataSetChanged()
+        }
+
+    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = data[position]
         holder.bind(item)
     }
 
@@ -80,15 +89,4 @@ class SleepNightAdapter :
             }
         }
     }
-}
-
-class SleepNightDiffCallback : DiffUtil.ItemCallback<SleepNight>() {
-    override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
-        return oldItem.nightId == newItem.nightId
-    }
-
-    override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
-        return oldItem == newItem
-    }
-
 }
