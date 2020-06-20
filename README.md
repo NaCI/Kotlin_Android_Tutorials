@@ -12,3 +12,5 @@ UdacityTutorial4 -> Activity Lifecycle
 UdacityTutorial5 -> MVVM Architecture (ViewModel - LiveData - Databinding and Navigation)
 
 UdacityTutorial6 -> Room - Coroutines - Tests - Navigation Component
+
+UdacityTutorial7 -> RecyclerView - ListAdapter - List Header - Coroutines - Navigation Component
