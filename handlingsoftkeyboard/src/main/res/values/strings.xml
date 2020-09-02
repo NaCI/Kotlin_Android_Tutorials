@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">handlingSoftKeyboard</string>
+    <string name="send_form_data">Send Form Data</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="mail">Mail</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="identity_number">Identity Number</string>
+</resources>
