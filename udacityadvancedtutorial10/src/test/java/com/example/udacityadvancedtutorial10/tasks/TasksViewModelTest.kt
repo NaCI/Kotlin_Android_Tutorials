@@ -1,28 +1,34 @@
 package com.example.udacityadvancedtutorial10.tasks
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.udacityadvancedtutorial10.data.Task
+import com.example.udacityadvancedtutorial10.data.source.FakeTestRepository
 import com.example.udacityadvancedtutorial10.getOrAwaitValue
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 class TasksViewModelTest {
 
     @get:Rule
     var instantTestExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var tasksRepository: FakeTestRepository
 
     private lateinit var tasksViewModel: TasksViewModel
 
     // Tüm testlerde ortak kullanılacak değişkenler için böyle bir tanım yapılabilir
     @Before
     fun setupViewModel() {
-        tasksViewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
+        tasksRepository = FakeTestRepository()
+        val task1 = Task("Title1", "Description1")
+        val task2 = Task("Title2", "Description2", true)
+        val task3 = Task("Title3", "Description3", true)
+        tasksRepository.addTasks(task1, task2, task3)
+
+        tasksViewModel = TasksViewModel(tasksRepository)
     }
 
     @Test
