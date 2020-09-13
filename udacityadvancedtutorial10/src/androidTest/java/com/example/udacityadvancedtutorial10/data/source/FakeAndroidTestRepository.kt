@@ -7,7 +7,7 @@ import com.example.udacityadvancedtutorial10.data.Result
 import com.example.udacityadvancedtutorial10.data.Task
 import kotlinx.coroutines.runBlocking
 
-class FakeTestRepository : TasksRepository {
+class FakeAndroidTestRepository : TasksRepository {
 
     var tasksServiceData: LinkedHashMap<String, Task> = LinkedHashMap()
 

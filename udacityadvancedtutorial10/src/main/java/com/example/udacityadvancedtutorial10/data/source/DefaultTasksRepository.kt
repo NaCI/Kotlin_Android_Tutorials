@@ -15,15 +15,10 @@
  */
 package com.example.udacityadvancedtutorial10.data.source
 
-import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.room.Room
 import com.example.udacityadvancedtutorial10.data.Result
 import com.example.udacityadvancedtutorial10.data.Result.Success
 import com.example.udacityadvancedtutorial10.data.Task
-import com.example.udacityadvancedtutorial10.data.source.local.TasksLocalDataSource
-import com.example.udacityadvancedtutorial10.data.source.local.ToDoDatabase
-import com.example.udacityadvancedtutorial10.data.source.remote.TasksRemoteDataSource
 import kotlinx.coroutines.*
 
 /**
@@ -34,28 +29,6 @@ class DefaultTasksRepository constructor(
     private val tasksLocalDataSource: TasksDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : TasksRepository {
-
-    companion object {
-        @Volatile
-        private var INSTANCE: DefaultTasksRepository? = null
-
-        fun getRepository(app: Application): DefaultTasksRepository {
-            return INSTANCE ?: synchronized(this) {
-                val database = Room.databaseBuilder(
-                    app,
-                    ToDoDatabase::class.java, "Tasks.db"
-                )
-                    .build()
-
-                DefaultTasksRepository(
-                    TasksRemoteDataSource,
-                    TasksLocalDataSource(database.taskDao())
-                ).also {
-                    INSTANCE = it
-                }
-            }
-        }
-    }
 
     override suspend fun getTasks(forceUpdate: Boolean): Result<List<Task>> {
         if (forceUpdate) {

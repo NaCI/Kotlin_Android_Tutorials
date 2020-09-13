@@ -23,8 +23,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.udacityadvancedtutorial10.EventObserver
 import com.example.udacityadvancedtutorial10.R
+import com.example.udacityadvancedtutorial10.TodoApplication
 import com.example.udacityadvancedtutorial10.ViewModelFactory
-import com.example.udacityadvancedtutorial10.data.source.DefaultTasksRepository
 import com.example.udacityadvancedtutorial10.databinding.TaskdetailFragBinding
 import com.example.udacityadvancedtutorial10.tasks.DELETE_RESULT_OK
 import com.example.udacityadvancedtutorial10.util.setupRefreshLayout
@@ -40,7 +40,7 @@ class TaskDetailFragment : Fragment() {
     private val args: TaskDetailFragmentArgs by navArgs()
 
     private val viewModel by viewModels<TaskDetailViewModel>() {
-        ViewModelFactory(DefaultTasksRepository.getRepository(requireActivity().application))
+        ViewModelFactory((requireActivity().application as TodoApplication).tasksRepository)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

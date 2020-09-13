@@ -25,9 +25,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.udacityadvancedtutorial10.EventObserver
 import com.example.udacityadvancedtutorial10.R
+import com.example.udacityadvancedtutorial10.TodoApplication
 import com.example.udacityadvancedtutorial10.ViewModelFactory
 import com.example.udacityadvancedtutorial10.data.Task
-import com.example.udacityadvancedtutorial10.data.source.DefaultTasksRepository
 import com.example.udacityadvancedtutorial10.databinding.TasksFragBinding
 import com.example.udacityadvancedtutorial10.util.setupRefreshLayout
 import com.example.udacityadvancedtutorial10.util.setupSnackbar
@@ -41,7 +41,7 @@ import timber.log.Timber
 class TasksFragment : Fragment() {
 
     private val viewModel by viewModels<TasksViewModel>() {
-        ViewModelFactory(DefaultTasksRepository.getRepository(requireActivity().application))
+        ViewModelFactory((requireActivity().application as TodoApplication).tasksRepository)
     }
 
     private val args: TasksFragmentArgs by navArgs()
