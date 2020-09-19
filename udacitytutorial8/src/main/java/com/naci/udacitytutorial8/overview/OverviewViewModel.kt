@@ -21,10 +21,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.naci.udacitytutorial8.network.MarsApi
-import com.naci.udacitytutorial8.network.MarsProperty
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
@@ -38,6 +38,9 @@ class OverviewViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
@@ -49,18 +52,19 @@ class OverviewViewModel : ViewModel() {
      * Sets the value of the status LiveData to the Mars API status.
      */
     private fun getMarsRealEstateProperties() {
-        MarsApi.retrofitService.getProperties().enqueue(object : Callback<List<MarsProperty>> {
-            override fun onResponse(
-                call: Call<List<MarsProperty>>,
-                response: Response<List<MarsProperty>>
-            ) {
-                _response.value = "Success: ${response.body()?.size} Mars properties fetched"
+        coroutineScope.launch {
+            val getPropertiesDeferred = MarsApi.retrofitService.getProperties()
+            try {
+                var propertyList = getPropertiesDeferred.await()
+                _response.value = "Success: ${propertyList.size} Mars properties fetched"
+            } catch (e: Exception) {
+                _response.value = "Failure: " + e.message
             }
+        }
+    }
 
-            override fun onFailure(call: Call<List<MarsProperty>>, t: Throwable) {
-                _response.value = "Failure: " + t.message
-            }
-
-        })
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }
