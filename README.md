@@ -15,4 +15,6 @@ UdacityTutorial6 -> Room - Coroutines - Tests - Navigation Component
 
 UdacityTutorial7 -> RecyclerView - ListAdapter - List Header - Coroutines - Navigation Component
 
+UdacityTutorial8 -> Retrofit - Glide - Coroutines - Moshi - Parcelize - RecyclerView - ListAdapter - Binding Adapter - Navigation Component
+
 UdacityAdvancedTutorial10 -> Unit and Instrumented Tests - Fake - Mock - Espresso
