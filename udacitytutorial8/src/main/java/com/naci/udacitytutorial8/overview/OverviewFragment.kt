@@ -22,7 +22,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.naci.udacitytutorial8.R
-import com.naci.udacitytutorial8.databinding.FragmentOverviewBinding
+import com.naci.udacitytutorial8.databinding.FragmentOverviewBindingImpl
 
 /**
  * This fragment shows the the status of the Mars real-estate web services transaction.
@@ -40,15 +40,19 @@ class OverviewFragment : Fragment() {
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val binding = FragmentOverviewBinding.inflate(inflater)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentOverviewBindingImpl.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
+
+        binding.rvGridPhotos.adapter = PhotoGridAdapter()
 
         setHasOptionsMenu(true)
         return binding.root

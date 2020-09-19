@@ -21,6 +21,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.naci.udacitytutorial8.network.MarsApi
+import com.naci.udacitytutorial8.network.MarsProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -30,6 +31,16 @@ import kotlinx.coroutines.launch
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
 class OverviewViewModel : ViewModel() {
+
+    private val _status = MutableLiveData<String>()
+
+    val status: LiveData<String>
+        get() = _status
+
+    private val _properties = MutableLiveData<List<MarsProperty>>()
+
+    val properties: LiveData<List<MarsProperty>>
+        get() = _properties
 
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _response = MutableLiveData<String>()
@@ -56,9 +67,11 @@ class OverviewViewModel : ViewModel() {
             val getPropertiesDeferred = MarsApi.retrofitService.getProperties()
             try {
                 var propertyList = getPropertiesDeferred.await()
-                _response.value = "Success: ${propertyList.size} Mars properties fetched"
+                if (propertyList.isNotEmpty()) {
+                    _properties.value = propertyList
+                }
             } catch (e: Exception) {
-                _response.value = "Failure: " + e.message
+                _status.value = "Failure: " + e.message
             }
         }
     }
