@@ -2,18 +2,14 @@ package com.example.udacityadvancedtutorial10.tasks
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.udacityadvancedtutorial10.Event
+import com.example.udacityadvancedtutorial10.MainCoroutineRule
 import com.example.udacityadvancedtutorial10.R
 import com.example.udacityadvancedtutorial10.data.Task
 import com.example.udacityadvancedtutorial10.data.source.FakeTestRepository
 import com.example.udacityadvancedtutorial10.getOrAwaitValue
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -24,11 +20,12 @@ class TasksViewModelTest {
     @get:Rule
     var instantTestExecutorRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    val mainCoroutineRule = MainCoroutineRule()
+
     private lateinit var tasksRepository: FakeTestRepository
 
     private lateinit var tasksViewModel: TasksViewModel
-
-    private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 
     // Tüm testlerde ortak kullanılacak değişkenler için böyle bir tanım yapılabilir
     @Before
@@ -40,17 +37,6 @@ class TasksViewModelTest {
         tasksRepository.addTasks(task1, task2, task3)
 
         tasksViewModel = TasksViewModel(tasksRepository)
-    }
-
-    @Before
-    fun setupDispatcher() {
-        Dispatchers.setMain(testDispatcher)
-    }
-
-    @After
-    fun tearDownDispatcher() {
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
