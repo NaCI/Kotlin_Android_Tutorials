@@ -23,6 +23,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.udacityadvancedtutorial10.R
+import com.example.udacityadvancedtutorial10.TodoApplication
+import com.example.udacityadvancedtutorial10.ViewModelFactory
 import com.example.udacityadvancedtutorial10.databinding.StatisticsFragBinding
 import com.example.udacityadvancedtutorial10.util.setupRefreshLayout
 
@@ -33,7 +35,11 @@ class StatisticsFragment : Fragment() {
 
     private lateinit var viewDataBinding: StatisticsFragBinding
 
-    private val viewModel by viewModels<StatisticsViewModel>()
+    private val viewModel by viewModels<StatisticsViewModel> {
+        ViewModelFactory(
+            (requireContext().applicationContext as TodoApplication).tasksRepository
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
