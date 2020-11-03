@@ -25,6 +25,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.udacityadvancedtutorial10.EventObserver
 import com.example.udacityadvancedtutorial10.R
+import com.example.udacityadvancedtutorial10.TodoApplication
+import com.example.udacityadvancedtutorial10.ViewModelFactory
 import com.example.udacityadvancedtutorial10.databinding.AddtaskFragBinding
 import com.example.udacityadvancedtutorial10.addedittask.AddEditTaskViewModel
 import com.example.udacityadvancedtutorial10.tasks.ADD_EDIT_RESULT_OK
@@ -41,7 +43,11 @@ class AddEditTaskFragment : Fragment() {
 
     private val args: AddEditTaskFragmentArgs by navArgs()
 
-    private val viewModel by viewModels<AddEditTaskViewModel>()
+    private val viewModel by viewModels<AddEditTaskViewModel> {
+        ViewModelFactory(
+            (requireContext().applicationContext as TodoApplication).tasksRepository
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
