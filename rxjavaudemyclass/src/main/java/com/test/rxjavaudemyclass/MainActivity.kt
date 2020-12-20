@@ -49,13 +49,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        myCompositeDisposable.add(myObserver)
-        // The order of operators are important
-        myObservable
-            .subscribeOn(Schedulers.io())
-            .delay(2, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(myObserver)
+        myCompositeDisposable.add(
+            myObservable
+                .subscribeOn(Schedulers.io())
+                .delay(2, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(myObserver)
+        )
 
         //This wont work cause it will change the thread to main before delay operation. Delay changes thread to io and ui operation gives error
         /*myObservable
@@ -79,19 +79,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        myCompositeDisposable.add(myObserver2)
-        myObservable
-            .subscribeOn(Schedulers.io())
-            .delay(3, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(myObserver2)
+        myCompositeDisposable.add(
+            myObservable
+                .subscribeOn(Schedulers.io())
+                .delay(3, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(myObserver2) // "subscribeWith" returns observer, thats why we use it here instead of "subscribe" method which returns unit
+        )
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-//        myObserver.dispose()
-//        myObserver2.dispose()
-        myCompositeDisposable.clear()
+        myCompositeDisposable.clear() // We will clear compositeDisposable instead of disposing 2 disposable observers separately
     }
 }

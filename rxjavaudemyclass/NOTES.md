@@ -43,6 +43,8 @@ Rx operators can transform one type of data to another, reducing, mapping or exp
 
 ## General Structure
 
+Observable emits  data,Observer gets data.
+
 ### Observables
 
 Observables observe data streams and emit them to subscribed Observers
@@ -108,6 +110,12 @@ DisposableObserver class implements both Observer and Disposable interfaces. Dis
 ### Composite Disposables
 
 In one class you can have more than one observers . So you will have so many observers to dispose. When we have more than one observers we use CompositeDisposable. By that way we can dispose all observers in one place with "clear" method on "CompositeDisposable".
+
+### What is the difference between clear() and dispose() ?
+
+When you are using CompositeDisposable, If you call to dispose() method, you will no longer be able to add disposables to that composite disposable.
+
+But if you call to clear() method you can still add disposable to the composite disposable . Clear() method just clears the disposables that are currently held within the instance.
 
 ## REFERENCES
 
