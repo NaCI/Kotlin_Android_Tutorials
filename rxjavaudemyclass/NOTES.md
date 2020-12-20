@@ -101,6 +101,14 @@ In order to prevent that problem we use disposables and dispose all thread opera
 
 ![General Structure](art/rxjava_structure.png)
 
+### Disposable Observers
+
+DisposableObserver class implements both Observer and Disposable interfaces. DisposableObserver is much efficient than Observer if you have more than one observers in the activity or fragment.
+
+### Composite Disposables
+
+In one class you can have more than one observers . So you will have so many observers to dispose. When we have more than one observers we use CompositeDisposable. By that way we can dispose all observers in one place with "clear" method on "CompositeDisposable".
+
 ## REFERENCES
 
 - https://www.udemy.com/course/rxjavarxandroid-bootcamp-reactivex-for-android-developers

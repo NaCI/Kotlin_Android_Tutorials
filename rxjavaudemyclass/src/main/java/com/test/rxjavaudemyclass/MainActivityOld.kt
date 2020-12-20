@@ -4,23 +4,21 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.observers.DisposableObserver
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 
 private const val TAG = "myApp"
 
-class MainActivity : AppCompatActivity() {
+class MainActivityOld : AppCompatActivity() {
 
     private lateinit var myObservable: Observable<String>
-    private lateinit var myObserver: DisposableObserver<String>
-    private lateinit var myObserver2: DisposableObserver<String>
-    private val myCompositeDisposable = CompositeDisposable()
+    private lateinit var myObserver: Observer<String>
+    private lateinit var myDisposable: Disposable
 
     private val greeting = "Hello From RxJava"
 
@@ -34,7 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         myObservable = Observable.just(greeting)
 
-        myObserver = object : DisposableObserver<String>() {
+        myObserver = object : Observer<String> {
+            override fun onSubscribe(d: Disposable?) {
+                Log.i(TAG, "onSubscribe: invoked")
+                d?.let { myDisposable = d }
+            }
+
             override fun onNext(t: String?) {
                 Log.i(TAG, "onNext: $t")
                 textView.text = t
@@ -49,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        myCompositeDisposable.add(myObserver)
         // The order of operators are important
         myObservable
             .subscribeOn(Schedulers.io())
@@ -63,35 +65,13 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .delay(2, TimeUnit.SECONDS)
             .subscribe(myObserver)*/
-
-        myObserver2 = object : DisposableObserver<String>() {
-            override fun onNext(t: String?) {
-                Log.i(TAG, "myObserver2 onNext: $t")
-                Snackbar.make(textView, greeting, Snackbar.LENGTH_LONG).show()
-            }
-
-            override fun onError(e: Throwable?) {
-                Log.i(TAG, "myObserver2 onError: invoked $e")
-            }
-
-            override fun onComplete() {
-                Log.i(TAG, "myObserver2 onComplete: invoked")
-            }
-        }
-
-        myCompositeDisposable.add(myObserver2)
-        myObservable
-            .subscribeOn(Schedulers.io())
-            .delay(3, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(myObserver2)
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-//        myObserver.dispose()
-//        myObserver2.dispose()
-        myCompositeDisposable.clear()
+        if (this::myDisposable.isInitialized) {
+            myDisposable.dispose()
+        }
     }
 }
