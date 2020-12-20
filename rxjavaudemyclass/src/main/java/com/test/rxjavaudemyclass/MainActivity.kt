@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var myObservable: Observable<String>
     private lateinit var myObserver: Observer<String>
+    private lateinit var myDisposable: Disposable
 
     private val greeting = "Hello From RxJava"
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         myObserver = object : Observer<String> {
             override fun onSubscribe(d: Disposable?) {
                 Log.i(TAG, "onSubscribe: invoked")
+                d?.let { myDisposable = d }
             }
 
             override fun onNext(t: String?) {
@@ -63,5 +65,13 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .delay(2, TimeUnit.SECONDS)
             .subscribe(myObserver)*/
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (this::myDisposable.isInitialized) {
+            myDisposable.dispose()
+        }
     }
 }

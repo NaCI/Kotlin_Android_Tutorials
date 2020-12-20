@@ -93,6 +93,12 @@ This creates and returns a custom scheduler backed by the specified executor.
 
 Use to Modify data which emits from observable
 
+### Disposables
+
+In mobile applications we cannot control the app life-cycle. Let’s say in an app you created you have written code to run a network call to a REST API and update the view accordingly. If a user initiate a view but decide to go back before the completion of the network call, What will happen? The activity or fragment will be destroyed. But the observer subscription will be there. When observer trying to update the User Interface, in this scenario as the view already destroyed,  it can cause a memory leak. And your app will freeze or crash as a result.
+
+In order to prevent that problem we use disposables and dispose all thread operations on screen lifecycle ends
+
 ![General Structure](art/rxjava_structure.png)
 
 ## REFERENCES
