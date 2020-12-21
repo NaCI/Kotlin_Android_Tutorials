@@ -95,6 +95,28 @@ This creates and returns a custom scheduler backed by the specified executor.
 
 Use to Modify data which emits from observable
 
+- Just Operator : Emit all item at once, ignoring item type even if item type is array
+
+- FromArray Operator : Emit all array items one by one
+
+// IMPORTANT : in kotlin this operator is not working, cause:
+
+According to their doc fromArray() only supports reference arrays. But in kotlin arrayOf<Int>() returns Array object. If we put a kotlin Array object in fromArray() method, it creates array of Array object (in java, it will be Array[]). So after subscription Observable returns that object of Array. But if we put items in fromArray() method, it will create array of Int. So after subscription it returns Int. If you want to iterate over any mutable iterable, then you can try Observable.fromIterable()
+
+- Range Operator : Creates an observable that emits a particular range of sequential integers
+
+- Create Operator : Create an Observable from scratch ny means of a function
+
+- Map Operator : Transform the items emitted by an Observable by applying a function to each item
+
+- FlatMap Operator : Transform the items emitted by an Observable into Observables, then flatten the emissions from those inte a single Observable
+
+The difference between Map and FlatMap operators, FlatMap operator returns Observable
+
+FlatMap operator is useful when calling queued network requests
+
+- ConcatMap : Same as FlatMap but cares about order of the emitted items. But ConcatMap is not useful for efficient/performance wise
+
 ### Disposables
 
 In mobile applications we cannot control the app life-cycle. Let’s say in an app you created you have written code to run a network call to a REST API and update the view accordingly. If a user initiate a view but decide to go back before the completion of the network call, What will happen? The activity or fragment will be destroyed. But the observer subscription will be there. When observer trying to update the User Interface, in this scenario as the view already destroyed,  it can cause a memory leak. And your app will freeze or crash as a result.

@@ -1,9 +1,10 @@
-package com.test.rxjavaudemyclass
+package com.test.rxjavaudemyclass.operators
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.test.rxjavaudemyclass.R
 import com.test.rxjavaudemyclass.data.Student
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -14,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 private const val TAG = "myApp"
 
-class MainActivity : AppCompatActivity() {
+class OperatorMapActivity : AppCompatActivity() {
 
     private lateinit var myObservable: Observable<Student>
     private lateinit var myObserver: DisposableObserver<Student>
@@ -39,14 +40,10 @@ class MainActivity : AppCompatActivity() {
             myObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .concatMap { student ->
-                    val student1 = Student()
-                    student1.name = "Friend of ${student.name}"
-
-                    val student2 = Student()
-                    student2.name = "Enemy of ${student.name}"
-
-                    Observable.just(student, student1, student2)
+                .map { student ->
+                    student.apply {
+                        this.name = "Haha ${this.name}"
+                    }
                 }
                 .subscribeWith(getObserver())
         )

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 private const val TAG = "myApp"
 
-class MainActivityOld : AppCompatActivity() {
+class MainActivityIntroOld : AppCompatActivity() {
 
     private lateinit var myObservable: Observable<String>
     private lateinit var myObserver: Observer<String>

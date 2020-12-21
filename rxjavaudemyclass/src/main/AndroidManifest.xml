@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivityIntro"/>
+        <activity android:name=".operators.OperatorJustActivity"/>
+        <activity android:name=".operators.OperatorIterableActivity"/>
+        <activity android:name=".operators.OperatorRangeActivity"/>
+        <activity android:name=".operators.OperatorCreateActivity"/>
+        <activity android:name=".operators.OperatorMapActivity"/>
+        <activity android:name=".operators.OperatorFlatMap"/>
     </application>
 
 </manifest>
