@@ -95,27 +95,57 @@ This creates and returns a custom scheduler backed by the specified executor.
 
 Use to Modify data which emits from observable
 
-- Just Operator : Emit all item at once, ignoring item type even if item type is array
+#### Just Operator
 
-- FromArray Operator : Emit all array items one by one
+Emit all item at once, ignoring item type even if item type is array
+
+#### FromArray Operator
+
+Emit all array items one by one
 
 // IMPORTANT : in kotlin this operator is not working, cause:
 
 According to their doc fromArray() only supports reference arrays. But in kotlin arrayOf<Int>() returns Array object. If we put a kotlin Array object in fromArray() method, it creates array of Array object (in java, it will be Array[]). So after subscription Observable returns that object of Array. But if we put items in fromArray() method, it will create array of Int. So after subscription it returns Int. If you want to iterate over any mutable iterable, then you can try Observable.fromIterable()
 
-- Range Operator : Creates an observable that emits a particular range of sequential integers
+#### Range Operator
 
-- Create Operator : Create an Observable from scratch ny means of a function
+Creates an observable that emits a particular range of sequential integers
 
-- Map Operator : Transform the items emitted by an Observable by applying a function to each item
+#### Create Operator
 
-- FlatMap Operator : Transform the items emitted by an Observable into Observables, then flatten the emissions from those inte a single Observable
+Create an Observable from scratch ny means of a function
+
+#### Map Operator
+
+Transform the items emitted by an Observable by applying a function to each item
+
+#### FlatMap Operator
+
+Transform the items emitted by an Observable into Observables, then flatten the emissions from those inte a single Observable
 
 The difference between Map and FlatMap operators, FlatMap operator returns Observable
 
 FlatMap operator is useful when calling queued network requests
 
-- ConcatMap : Same as FlatMap but cares about order of the emitted items. But ConcatMap is not useful for efficient/performance wise
+#### ConcatMap Operator
+
+Same as FlatMap but cares about order of the emitted items. But ConcatMap is not useful for efficient/performance wise
+
+#### Buffer Operator
+
+Periodically gather items emitted by an Observable into bundles and emit these bundles rather than emitting the items one at a time
+
+#### Filter Operator
+
+Filters the emitted items by create predicate
+
+#### Distinct Operator
+
+Supress duplicate items emitted by an Observable
+
+#### Skip Operator
+
+Suppress the first n items emitted by an Observable
 
 ### Disposables
 
@@ -142,3 +172,5 @@ But if you call to clear() method you can still add disposable to the composite 
 ## REFERENCES
 
 - https://www.udemy.com/course/rxjavarxandroid-bootcamp-reactivex-for-android-developers
+
+- http://reactivex.io/documentation

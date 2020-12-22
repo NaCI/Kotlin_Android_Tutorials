@@ -17,13 +17,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivityIntro"/>
-        <activity android:name=".operators.OperatorJustActivity"/>
-        <activity android:name=".operators.OperatorIterableActivity"/>
-        <activity android:name=".operators.OperatorRangeActivity"/>
-        <activity android:name=".operators.OperatorCreateActivity"/>
-        <activity android:name=".operators.OperatorMapActivity"/>
-        <activity android:name=".operators.OperatorFlatMap"/>
+        <activity android:name=".MainActivityIntro" />
+        <activity android:name=".operators.OperatorJustActivity" />
+        <activity android:name=".operators.OperatorIterableActivity" />
+        <activity android:name=".operators.OperatorRangeActivity" />
+        <activity android:name=".operators.OperatorCreateActivity" />
+        <activity android:name=".operators.OperatorMapActivity" />
+        <activity android:name=".operators.OperatorFlatMap" />
+        <activity android:name=".operators.OperatorBufferActivity" />
+        <activity android:name=".operators.OperatorFilterActivity" />
+        <activity android:name=".operators.OperatorDistinctActivity" />
+        <activity android:name=".operators.OperatorSkipActivity" />
     </application>
 
 </manifest>

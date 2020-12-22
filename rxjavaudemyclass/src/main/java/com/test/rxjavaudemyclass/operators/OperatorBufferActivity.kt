@@ -1,9 +1,10 @@
-package com.test.rxjavaudemyclass
+package com.test.rxjavaudemyclass.operators
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.test.rxjavaudemyclass.R
 import com.test.rxjavaudemyclass.data.Student
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -14,10 +15,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 private const val TAG = "myApp"
 
-class MainActivity : AppCompatActivity() {
+class OperatorBufferActivity : AppCompatActivity() {
 
     private lateinit var myObservable: Observable<Student>
-    private lateinit var myObserver: DisposableObserver<Student>
+    private lateinit var myObserver: DisposableObserver<List<Student>>
     private val myCompositeDisposable = CompositeDisposable()
 
     private lateinit var textView: TextView
@@ -39,18 +40,18 @@ class MainActivity : AppCompatActivity() {
             myObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .skipWhile {
-                    it.age != 22
-                }
-                .skip(1)
+                .buffer(2)
                 .subscribeWith(getObserver())
         )
     }
 
-    private fun getObserver(): DisposableObserver<Student> {
-        myObserver = object : DisposableObserver<Student>() {
-            override fun onNext(t: Student?) {
-                Log.i(TAG, "onNext: $t")
+    private fun getObserver(): DisposableObserver<List<Student>> {
+        myObserver = object : DisposableObserver<List<Student>>() {
+            override fun onNext(t: List<Student>?) {
+                Log.i(TAG, "onNext block")
+                for (student in t!!) {
+                    Log.i(TAG, "onNext student: $student")
+                }
             }
 
             override fun onError(e: Throwable?) {
@@ -79,12 +80,12 @@ class MainActivity : AppCompatActivity() {
         val student3 = Student()
         student3.name = " student 3"
         student3.email = " student3@gmail.com "
-        student3.age = 22
+        student3.age = 20
         students.add(student3)
         val student4 = Student()
         student4.name = " student 4"
         student4.email = " student4@gmail.com "
-        student4.age = 27
+        student4.age = 20
         students.add(student4)
         val student5 = Student()
         student5.name = " student 5"
