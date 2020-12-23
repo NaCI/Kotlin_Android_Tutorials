@@ -1,9 +1,10 @@
-package com.test.rxjavaudemyclass
+package com.test.rxjavaudemyclass.subjects
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.test.rxjavaudemyclass.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
@@ -17,7 +18,7 @@ import io.reactivex.rxjava3.subjects.ReplaySubject
 
 private const val TAG = "myApp"
 
-class MainActivity : AppCompatActivity() {
+class SubjectsActivity : AppCompatActivity() {
 
     private lateinit var textView: TextView
 

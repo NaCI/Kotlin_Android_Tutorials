@@ -28,6 +28,7 @@
         <activity android:name=".operators.OperatorFilterActivity" />
         <activity android:name=".operators.OperatorDistinctActivity" />
         <activity android:name=".operators.OperatorSkipActivity" />
+        <activity android:name=".subjects.SubjectsActivity" />
     </application>
 
 </manifest>

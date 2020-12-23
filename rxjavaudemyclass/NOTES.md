@@ -169,6 +169,26 @@ When you are using CompositeDisposable, If you call to dispose() method, you wil
 
 But if you call to clear() method you can still add disposable to the composite disposable . Clear() method just clears the disposables that are currently held within the instance.
 
+### Subject
+
+A Subject is a sort of bridge or proxy that is available in some implementations of ReactiveX that acts both as an observer and as an Observable. Because it is an observer, it can subscribe to one or more Observables, and because it is an Observable, it can pass through the items it observes by reemitting them, and it can also emit new items.
+
+#### Async Subject
+
+Only emits the last value of the Observable.
+
+#### Behavior Subject
+
+Emits the most recently emitted item and all the subsequent items of the  Observable.
+
+#### Publish Subject
+
+Emits all the subsequent items of the source Observable at the time of subscription.
+
+#### Replay Subject
+
+Emits all the items of the source Observable, regardless of when the subscriber subscribes.
+
 ## REFERENCES
 
 - https://www.udemy.com/course/rxjavarxandroid-bootcamp-reactivex-for-android-developers
