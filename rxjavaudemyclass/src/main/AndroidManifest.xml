@@ -29,6 +29,7 @@
         <activity android:name=".operators.OperatorDistinctActivity" />
         <activity android:name=".operators.OperatorSkipActivity" />
         <activity android:name=".subjects.SubjectsActivity" />
+        <activity android:name=".rxbinding.RxBindingActivity" />
     </application>
 
 </manifest>
