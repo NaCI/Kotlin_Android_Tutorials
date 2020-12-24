@@ -34,7 +34,7 @@ class SubjectsActivity : AppCompatActivity() {
         behaviourSubjectDemo2()
 //        publishSubjectDemo()
         publishSubjectDemo2()
-        replaySubjectDemo()
+//        replaySubjectDemo()
         replaySubjectDemo2()
     }
 
