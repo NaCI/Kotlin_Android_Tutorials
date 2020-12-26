@@ -9,9 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin_Android_Tutorials">
-        <activity android:name=".MainActivity">
-
-        </activity>
 
         <activity android:name=".MainActivityIntro" >
             <intent-filter>
@@ -32,6 +29,7 @@
         <activity android:name=".operators.OperatorSkipActivity" />
         <activity android:name=".subjects.SubjectsActivity" />
         <activity android:name=".rxbinding.RxBindingActivity" />
+        <activity android:name=".rxflowable.RxFlowableActivity" />
     </application>
 
 </manifest>

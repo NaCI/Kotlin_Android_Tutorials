@@ -189,6 +189,48 @@ Emits all the subsequent items of the source Observable at the time of subscript
 
 Emits all the items of the source Observable, regardless of when the subscriber subscribes.
 
+### BACKPRESSURE
+
+When the Observer is not able to consume items as quickly as they are produced by an Observable they need to be buffered or handled in some other way, before they fill up the memory, finally causing OutOfMemoryException
+
+Example : If an observer can handle only 1000 items per second,  but its Observable emits 100000 items per second
+
+RxJava, Introduced **Flowable** class for handling the backpressure.
+
+#### FLOWABLES
+
+We can easily create a Flowable from any object or value using just operator . Like we did with for the Observable.
+
+This is the simplest way. But, widely used approach to create a flowable  is toFlowable() method.
+
+We can invoke any observables ‘s toFlowable method passing BackpressureStrategy as an argument.
+
+Flowable works according to pub-sub pattern, i.e publisher - subscriber pattern; whereas, Observable works according to observer pattern
+
+#### Backpressure strategies
+
+##### BackpressureStrategy.DROP
+
+We use this to discard the events that cannot be consumed by the Observer.
+
+##### BackpressureStrategy.BUFFER
+
+If we use this, the source will buffer all the events until the subscriber can consume them. I recommend this strategy for most of the use cases, because there will be no data loss with this strategy.
+
+##### BackpressureStrategy.LATEST
+
+BackpressureStrategy.LATEST, force  to the source to keep only the latest items, to do that source may need to  overwrite some previous values .
+
+##### BackpressureStrategy.MISSING
+
+We may temporary  pass this value, if we don’t want any backpressure stratergy.
+
+##### BackpressureStrategy.ERROR
+
+If we don’t expect backpressure at all, we can pass BackpressureStrategy.ERROR
+
+PS: In both of the cases( BackpressureStrategy.MISSING,  BackpressureStrategy.ERROR  ), a MissingBackpressureException will be thrown if the observer can’t keep up with the data emitting speed of the source.
+
 ## REFERENCES
 
 - https://www.udemy.com/course/rxjavarxandroid-bootcamp-reactivex-for-android-developers
