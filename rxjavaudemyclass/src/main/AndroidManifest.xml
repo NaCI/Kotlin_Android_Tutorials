@@ -10,14 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kotlin_Android_Tutorials">
         <activity android:name=".MainActivity">
+
+        </activity>
+
+        <activity android:name=".MainActivityIntro" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MainActivityIntro" />
         <activity android:name=".operators.OperatorJustActivity" />
         <activity android:name=".operators.OperatorIterableActivity" />
         <activity android:name=".operators.OperatorRangeActivity" />
