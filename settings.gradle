@@ -1,3 +1,4 @@
+include ':rxJavaUdemyClassCaseStudy3'
 include ':rxJavaUdemyClassCaseStudy2'
 include ':rxJavaUdemyClassCaseStudy1'
 include ':rxjavaudemyclass'
