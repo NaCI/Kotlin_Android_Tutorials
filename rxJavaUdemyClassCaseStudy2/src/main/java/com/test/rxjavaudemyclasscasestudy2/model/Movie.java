@@ -58,6 +58,8 @@ public class Movie implements Parcelable
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+    @Expose(serialize = false, deserialize = false)
+    private boolean isFavorite;
     public final static Creator<Movie> CREATOR = new Creator<Movie>() {
 
 
@@ -90,6 +92,7 @@ public class Movie implements Parcelable
         this.adult = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
         this.overview = ((String) in.readValue((String.class.getClassLoader())));
         this.releaseDate = ((String) in.readValue((String.class.getClassLoader())));
+        this.isFavorite = in.readByte() != 0;
     }
 
     public Movie() {
@@ -222,6 +225,7 @@ public class Movie implements Parcelable
         dest.writeValue(adult);
         dest.writeValue(overview);
         dest.writeValue(releaseDate);
+        dest.writeByte((byte) (isFavorite ? 1 : 0));
     }
 
     public int describeContents() {
