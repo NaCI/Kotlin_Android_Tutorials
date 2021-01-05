@@ -10,6 +10,8 @@ import com.test.rxjavaudemyclasscasestudy3.db.entity.Contact;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 @Dao
 public interface ContactDAO {
 
@@ -23,10 +25,10 @@ public interface ContactDAO {
     public void deleteContact(Contact contact);
 
     @Query("select * from contacts")
-    public List<Contact> getContacts();
+    public Flowable<List<Contact>> getContacts();
 
-    @Query("select * from contacts where contact_id ==:contactId")
-    public Contact getContact(long contactId);
+    @Query("select * from contacts where contact_id ==:dbContactId")
+    public Contact getContact(long dbContactId);
 
 
 }
