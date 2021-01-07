@@ -25,6 +25,6 @@ RxJavaUdemyClass -> Udemy Class Samples
 
 RxJavaUdemyClassCaseStudy1 -> Udemy Class Sample - RxJava with sqlite db
 
-RxJavaUdemyClassCaseStudy2 -> Udemy Class Sample - RxJava with Retrofit - flatMap - filter - Flowable.fromArray
+RxJavaUdemyClassCaseStudy2 -> Udemy Class Sample - RxJava with Retrofit - flatMap - filter - Flowable.fromArray (fromIteration) - MVVM
 
 RxJavaUdemyClassCaseStudy3 -> Udemy Class Sample - RxJava with Room - Completable.fromAction - Observable Select query - MVVM

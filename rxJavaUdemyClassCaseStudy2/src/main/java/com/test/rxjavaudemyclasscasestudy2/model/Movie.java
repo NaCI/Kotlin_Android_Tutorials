@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Movie implements Parcelable
-{
+public class Movie implements Parcelable {
 
     @SerializedName("vote_count")
     @Expose
@@ -74,8 +73,7 @@ public class Movie implements Parcelable
             return (new Movie[size]);
         }
 
-    }
-            ;
+    };
 
     protected Movie(Parcel in) {
         this.voteCount = ((Integer) in.readValue((Integer.class.getClassLoader())));
@@ -208,6 +206,27 @@ public class Movie implements Parcelable
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "voteCount=" + voteCount +
+                ", id=" + id +
+                ", video=" + video +
+                ", voteAverage=" + voteAverage +
+                ", title='" + title + '\'' +
+                ", popularity=" + popularity +
+                ", posterPath='" + posterPath + '\'' +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", originalTitle='" + originalTitle + '\'' +
+                ", genreIds=" + genreIds +
+                ", backdropPath='" + backdropPath + '\'' +
+                ", adult=" + adult +
+                ", overview='" + overview + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", isFavorite=" + isFavorite +
+                '}';
     }
 
     public void writeToParcel(Parcel dest, int flags) {
