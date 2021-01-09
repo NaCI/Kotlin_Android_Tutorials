@@ -21,10 +21,12 @@ UdacityAdvancedTutorial10 -> Unit and Instrumented Tests - Fake - Mock - Espress
 
 RxJavaTutorial1 -> Basic RxJava and RxAndroid - Observable - Observer - CompositeDisposable
 
-RxJavaUdemyClass -> Udemy Class Samples
+RxJavaUdemyClass -> Udemy Class Samples - **Includes Notes about RxJava**
 
 RxJavaUdemyClassCaseStudy1 -> Udemy Class Sample - RxJava with sqlite db
 
 RxJavaUdemyClassCaseStudy2 -> Udemy Class Sample - RxJava with Retrofit - flatMap - filter - Flowable.fromArray (fromIteration) - MVVM
 
 RxJavaUdemyClassCaseStudy3 -> Udemy Class Sample - RxJava with Room - Completable.fromAction - Observable Select query - MVVM
+
+RxJavaThrottleAllClicks -> Throttle all click events via DataBinding - RxView - AndroidX.Lifecycle - BindingAdapter
