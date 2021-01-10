@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
 @BindingAdapter("android:onClick")
 fun bindClick(view: View, listener: View.OnClickListener) {
     view.clicks()
-//        .throttleFirst(CLICK_THROTTLE_DURATION, TimeUnit.MILLISECONDS)
-        .delay(CLICK_THROTTLE_DURATION, TimeUnit.MILLISECONDS)
+        .throttleFirst(CLICK_THROTTLE_DURATION, TimeUnit.MILLISECONDS)
+//        .delay(CLICK_THROTTLE_DURATION, TimeUnit.MILLISECONDS)
         .subscribe({
             // Check if view still alive to avoid crashes
             if (ViewTreeLifecycleOwner.get(view)?.lifecycle?.currentState?.isAtLeast(Lifecycle.State.STARTED)!!) {

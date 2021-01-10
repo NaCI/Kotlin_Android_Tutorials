@@ -19,9 +19,15 @@ class SubMainActivity : AppCompatActivity() {
 
         binding.button1.setOnClickListener {
             Timber.i("Button clicked - Another way")
+            RxBus.publish(RxEvent.MyEvent2(3, true))
         }
         binding.clickListener = ButtonClickListener { buttonName ->
             Timber.i("$buttonName clicked")
         }
+    }
+
+    override fun onDestroy() {
+        RxBus.publish(RxEvent.MyEvent1("SubMainActivity : I'm gonna destroy"))
+        super.onDestroy()
     }
 }

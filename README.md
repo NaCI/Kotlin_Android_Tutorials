@@ -29,4 +29,4 @@ RxJavaUdemyClassCaseStudy2 -> Udemy Class Sample - RxJava with Retrofit - flatMa
 
 RxJavaUdemyClassCaseStudy3 -> Udemy Class Sample - RxJava with Room - Completable.fromAction - Observable Select query - MVVM
 
-RxJavaThrottleAllClicks -> Throttle all click events via DataBinding - RxView - AndroidX.Lifecycle - BindingAdapter
+RxJavaThrottleAllClicks -> Throttle all click events via DataBinding - RxBinding - AndroidX.Lifecycle - BindingAdapter - RxBus
