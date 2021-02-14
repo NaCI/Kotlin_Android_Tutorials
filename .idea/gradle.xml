@@ -10,6 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/dependencyInjectionUdemyClass" />
             <option value="$PROJECT_DIR$/handlingsoftkeyboard" />
             <option value="$PROJECT_DIR$/kotlincoroutinecodelab" />
             <option value="$PROJECT_DIR$/rxJavaThrottleAllClicks" />
