@@ -1,27 +1,16 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.questions
 
-import com.naci.tutorial.dependencyinjectionudemyclass.Constants
 import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowApi
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class FetchQuestionsUseCase {
+class FetchQuestionsUseCase(private val stackoverflowApi: StackoverflowApi) {
 
     sealed class Result {
         class Success(val questions: List<Question>) : Result()
         object Failure : Result()
     }
-
-    // init retrofit
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
     suspend fun fetchLatestQuestions(): Result {
         return withContext(Dispatchers.IO) {

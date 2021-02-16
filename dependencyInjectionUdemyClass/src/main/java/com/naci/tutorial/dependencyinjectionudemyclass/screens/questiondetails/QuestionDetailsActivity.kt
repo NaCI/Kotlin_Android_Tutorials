@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.naci.tutorial.dependencyinjectionudemyclass.MyApplication
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
+import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.dialogs.DialogsNavigator
 import kotlinx.coroutines.*
 
@@ -27,6 +29,7 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
     private lateinit var viewMvc: QuestionDetailsViewMvc
     private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +37,10 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
         viewMvc = QuestionDetailsViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchQuestionDetailsUseCase = FetchQuestionDetailsUseCase()
+        fetchQuestionDetailsUseCase =
+            FetchQuestionDetailsUseCase((application as MyApplication).stackoverflowApi)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
@@ -79,6 +84,6 @@ class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.List
     }
 
     override fun onNavigateUpClicked() {
-        onBackPressed()
+        screensNavigator.navigateBack()
     }
 }

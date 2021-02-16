@@ -3,10 +3,11 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.questionslist
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.naci.tutorial.dependencyinjectionudemyclass.MyApplication
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.Question
+import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.dialogs.DialogsNavigator
-import com.naci.tutorial.dependencyinjectionudemyclass.screens.questiondetails.QuestionDetailsActivity
 import kotlinx.coroutines.*
 
 class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener {
@@ -18,6 +19,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
     private lateinit var viewMvc: QuestionsListViewMvc
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
     private lateinit var dialogsNavigator: DialogsNavigator
+    private lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +27,10 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
         viewMvc = QuestionsListViewMvc(LayoutInflater.from(this), null)
         setContentView(viewMvc.rootView)
 
-        fetchQuestionsUseCase = FetchQuestionsUseCase()
+        fetchQuestionsUseCase =
+            FetchQuestionsUseCase((application as MyApplication).stackoverflowApi)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onRefreshClicked() {
@@ -34,7 +38,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListViewMvc.Listener
     }
 
     override fun onQuestionClicked(question: Question) {
-        QuestionDetailsActivity.start(this, question.id)
+        screensNavigator.toQuestionDetails(question.id)
     }
 
     override fun onStart() {

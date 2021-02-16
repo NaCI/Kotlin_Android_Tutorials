@@ -41,6 +41,22 @@ Dependency Injection Architecturel Pattern (DIAP) is application wide dependency
 It's complex to achieve this larger scale structure. That's why we use frameworks to integrate dependency injection.
 DIAP is not equal to fundamental techniques. It's much more.
 
+## Law of Demeter
+
+Class dependencies must be higher level. It means don't involve some unrelated classes to obtain dependencies.
+It is really important to maintain code.
+
+E.g : If our class needs to fetch data over retrofit, just get apiService object from constructor.
+Don't pass retrofit object to class to initialize apiService inside class.
+
+Characteristics:
+
+- Principle of least knowledge
+
+- Minimize class dependencies
+
+- Makes code more readable and maintainable
+
 ## References
 
 - https://www.udemy.com/course/dependency-injection-in-android-with-dagger
