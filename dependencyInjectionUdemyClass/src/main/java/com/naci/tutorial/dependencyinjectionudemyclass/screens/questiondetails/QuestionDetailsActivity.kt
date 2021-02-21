@@ -3,7 +3,6 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.activity.BaseActivity
@@ -33,11 +32,11 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewMvc = QuestionDetailsViewMvc(LayoutInflater.from(this), null)
+        viewMvc = compositionRoot.viewMvcFactory.newQuestionDetailsViewMvc(null)
         setContentView(viewMvc.rootView)
 
         fetchQuestionDetailsUseCase = compositionRoot.fetchQuestionDetailsUseCase
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = compositionRoot.screensNavigator
 
         // retrieve question ID passed from outside

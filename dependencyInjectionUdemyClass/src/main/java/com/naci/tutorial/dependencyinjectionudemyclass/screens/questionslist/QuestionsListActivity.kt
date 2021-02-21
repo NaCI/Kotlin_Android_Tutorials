@@ -1,7 +1,6 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.screens.questionslist
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.Question
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
@@ -23,11 +22,11 @@ class QuestionsListActivity : BaseActivity(), QuestionsListViewMvc.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewMvc = QuestionsListViewMvc(LayoutInflater.from(this), null)
+        viewMvc = compositionRoot.viewMvcFactory.newQuestionListViewMvc(null)
         setContentView(viewMvc.rootView)
 
         fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = compositionRoot.screensNavigator
     }
 
