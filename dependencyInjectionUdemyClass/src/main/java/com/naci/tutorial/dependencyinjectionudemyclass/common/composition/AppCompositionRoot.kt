@@ -12,13 +12,27 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class AppCompositionRoot {
 
-    // init retrofit
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    /**
+     * "lazy" : this keyword means that the variable will be initialize when it will be used for the first time
+     *
+     * unlike "get() = " assignment lazy variables are not going to created for every call. there will be only one variable (like singleton)
+     *
+     * and lazy is thread-safe
+     *
+     * whenever we want to service global, we need to use lazy for better performance
+     */
 
-    private val stackoverflowApi: StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
+    // init retrofit
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private val stackoverflowApi: StackoverflowApi by lazy {
+        retrofit.create(StackoverflowApi::class.java)
+    }
 
     val fetchQuestionsUseCase get() = FetchQuestionsUseCase(stackoverflowApi)
     val fetchQuestionDetailsUseCase get() = FetchQuestionDetailsUseCase(stackoverflowApi)
