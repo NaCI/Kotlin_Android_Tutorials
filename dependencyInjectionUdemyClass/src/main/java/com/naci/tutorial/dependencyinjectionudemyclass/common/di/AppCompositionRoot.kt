@@ -1,4 +1,4 @@
-package com.naci.tutorial.dependencyinjectionudemyclass.common.composition
+package com.naci.tutorial.dependencyinjectionudemyclass.common.di
 
 import com.naci.tutorial.dependencyinjectionudemyclass.Constants
 import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowApi

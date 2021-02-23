@@ -1,7 +1,7 @@
 package com.naci.tutorial.dependencyinjectionudemyclass
 
 import android.app.Application
-import com.naci.tutorial.dependencyinjectionudemyclass.common.composition.AppCompositionRoot
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.AppCompositionRoot
 
 class MyApplication : Application() {
 

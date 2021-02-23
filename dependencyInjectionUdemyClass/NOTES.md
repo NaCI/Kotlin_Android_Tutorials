@@ -57,6 +57,38 @@ Characteristics:
 
 - Makes code more readable and maintainable
 
+## Main Benefit of Dependency Injection
+
+Non-repetitive definition and exposure of the entire object graph by composition root is the main benefit of dependency injection.
+
+With dependency injection, we can keep our classes small and focused, but still easily compose them into arbitrary long chains
+to achieve complex functionality.
+
+Other main benefits of Dependency Injection is that it enables **Single Responsibility Principle** and **Reusability**
+
+With Dependency Injection, developer being able to separate the functionality into small, narrowly focused
+classes that adhere to the single responsibility principle and then being able to easily reduce this classes
+when you construct complex, logical flows. We basically compose this classes into larger flows.
+
+## Objects vs Data Structures
+
+Object: contains behaviour
+
+Data Structure: contains only data
+
+Dependency Injection Architectural Pattern deals with objects, not data structures.
+Therefore, you should not expose data structures on your object graph (composition roots, components in dagger) either internally or externally.
+
+E.g:
+public class DataAggregator() {
+    private final List<Data> mData;
+
+    public DataAggregator() {
+        mData = new LinkedList<>();    -----> this doesn't violate dependency injection principle, as its data structure not object.
+    }
+}
+
+
 ## References
 
 - https://www.udemy.com/course/dependency-injection-in-android-with-dagger
