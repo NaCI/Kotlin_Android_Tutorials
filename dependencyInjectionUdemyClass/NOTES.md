@@ -80,13 +80,16 @@ Dependency Injection Architectural Pattern deals with objects, not data structur
 Therefore, you should not expose data structures on your object graph (composition roots, components in dagger) either internally or externally.
 
 E.g:
+
+```Java
 public class DataAggregator() {
     private final List<Data> mData;
 
     public DataAggregator() {
-        mData = new LinkedList<>();    -----> this doesn't violate dependency injection principle, as its data structure not object.
+        mData = new LinkedList<>();   // -----> this doesn't violate dependency injection principle, as its data structure not object.
     }
 }
+```
 
 
 ## References
