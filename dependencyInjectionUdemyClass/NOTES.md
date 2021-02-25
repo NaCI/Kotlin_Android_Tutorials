@@ -41,6 +41,14 @@ Dependency Injection Architecturel Pattern (DIAP) is application wide dependency
 It's complex to achieve this larger scale structure. That's why we use frameworks to integrate dependency injection.
 DIAP is not equal to fundamental techniques. It's much more.
 
+According to DIAP our application should be seperated into two disjoint sets:
+
+- Construction set (classes needs to be alive for functional sets work properly)
+
+- Functional set
+
+- Integration logic between these two sets
+
 ## Law of Demeter
 
 Class dependencies must be higher level. It means don't involve some unrelated classes to obtain dependencies.
