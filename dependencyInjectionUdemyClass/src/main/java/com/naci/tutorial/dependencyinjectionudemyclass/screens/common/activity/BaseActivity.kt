@@ -2,7 +2,6 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.common.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import com.naci.tutorial.dependencyinjectionudemyclass.MyApplication
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.Injector
 import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityComponent
 import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityModule
 import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.DaggerActivityComponent
@@ -28,6 +27,6 @@ open class BaseActivity : AppCompatActivity() {
             .build()
     }
 
-    protected val injector get() = Injector(presentationComponent)
+    protected val injector get() = presentationComponent
 
 }

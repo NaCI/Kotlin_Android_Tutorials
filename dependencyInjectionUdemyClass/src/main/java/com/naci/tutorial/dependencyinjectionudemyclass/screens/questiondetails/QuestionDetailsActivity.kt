@@ -3,13 +3,13 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.Service
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.activity.BaseActivity
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.dialogs.DialogsNavigator
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.viewmvc.ViewMvcFactory
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener {
 
@@ -26,17 +26,17 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
     private lateinit var questionId: String
 
-    @field:Service
-    private lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    @Inject
+    lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 
-    @field:Service
-    private lateinit var dialogsNavigator: DialogsNavigator
+    @Inject
+    lateinit var dialogsNavigator: DialogsNavigator
 
-    @field:Service
-    private lateinit var screensNavigator: ScreensNavigator
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
 
-    @field:Service
-    private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: QuestionDetailsViewMvc
 

@@ -105,6 +105,33 @@ Component that provide scoped services must be scoped
 
 All clients get the same instance of a scoped service **from same instance** of a Component
 
+## Dagger2 Injector
+
+Void methods with single argument defined on components, generate injectors for the type of the argument
+
+E.g:
+
+```kotlin
+@Component(modules = [PresentationModule::class])
+interface PresentationComponent {
+
+    fun inject(questionsListFragment: QuestionsListFragment)
+}
+```
+
+Client's non-private non-final properties(fields) annotated with @Inject designate injection targets
+
+E.g:
+
+```kotlin
+class QuestionsListFragment : BaseFragment() {
+
+    @Inject
+    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+}
+```
+
+
 ## References
 
 - https://www.udemy.com/course/dependency-injection-in-android-with-dagger
