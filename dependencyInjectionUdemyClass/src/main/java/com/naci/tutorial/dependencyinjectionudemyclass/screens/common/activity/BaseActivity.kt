@@ -6,16 +6,19 @@ import com.naci.tutorial.dependencyinjectionudemyclass.common.di.*
 
 open class BaseActivity : AppCompatActivity() {
 
-    private val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
+    private val appComponent get() = (application as MyApplication).appComponent
 
-    val activityCompositionRoot by lazy {
-        ActivityCompositionRoot(this, appCompositionRoot)
+    val activityComponent: ActivityComponent by lazy {
+        DaggerActivityComponent
+            .builder()
+            .activityModule(ActivityModule(this, appComponent))
+            .build()
     }
 
     private val presentationComponent: PresentationComponent by lazy {
         DaggerPresentationComponent
             .builder()
-            .presentationModule(PresentationModule(activityCompositionRoot))
+            .presentationModule(PresentationModule(activityComponent))
             .build()
     }
 

@@ -13,7 +13,7 @@ open class BaseFragment : Fragment() {
         DaggerPresentationComponent
             .builder()
             .presentationModule(
-                PresentationModule((requireActivity() as BaseActivity).activityCompositionRoot)
+                PresentationModule((requireActivity() as BaseActivity).activityComponent)
             )
             .build()
     }
