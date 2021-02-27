@@ -1,20 +1,12 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity
 
-import android.view.LayoutInflater
-import androidx.fragment.app.FragmentManager
-import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowApi
-import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
-import dagger.Component
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation.PresentationComponent
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation.PresentationModule
+import dagger.Subcomponent
 
 @ActivityScope
-@Component(modules = [ActivityModule::class])
+@Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {
 
-    fun screensNavigator(): ScreensNavigator
-
-    fun layoutInflater(): LayoutInflater
-
-    fun fragmentManager(): FragmentManager
-
-    fun stackoverflowApi(): StackoverflowApi
+    fun newPresentationComponent(presentationModule: PresentationModule): PresentationComponent
 }

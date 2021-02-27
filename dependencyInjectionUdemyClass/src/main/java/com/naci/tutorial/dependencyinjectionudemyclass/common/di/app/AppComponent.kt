@@ -1,17 +1,12 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.common.di.app
 
-import android.app.Application
-import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowApi
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityComponent
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityModule
 import dagger.Component
-import retrofit2.Retrofit
 
 @AppScope
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun application(): Application
-
-    fun retrofit(): Retrofit
-
-    fun stackoverflowApi(): StackoverflowApi
+    fun newActivityComponent(activityModule: ActivityModule): ActivityComponent
 }
