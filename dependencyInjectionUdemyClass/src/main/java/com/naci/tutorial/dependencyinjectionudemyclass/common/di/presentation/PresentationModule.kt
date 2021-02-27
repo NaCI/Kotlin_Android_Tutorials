@@ -1,7 +1,8 @@
-package com.naci.tutorial.dependencyinjectionudemyclass.common.di
+package com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityComponent
 import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowApi
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase

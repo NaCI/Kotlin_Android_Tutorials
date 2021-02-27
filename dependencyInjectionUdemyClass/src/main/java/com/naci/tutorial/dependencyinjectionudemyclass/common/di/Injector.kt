@@ -1,5 +1,6 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.common.di
 
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation.PresentationComponent
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator

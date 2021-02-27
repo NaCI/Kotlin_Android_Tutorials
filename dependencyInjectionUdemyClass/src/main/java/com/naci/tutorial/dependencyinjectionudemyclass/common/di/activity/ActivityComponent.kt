@@ -1,4 +1,4 @@
-package com.naci.tutorial.dependencyinjectionudemyclass.common.di
+package com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity
 
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
@@ -6,6 +6,7 @@ import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowA
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
 import dagger.Component
 
+@ActivityScope
 @Component(modules = [ActivityModule::class])
 interface ActivityComponent {
 

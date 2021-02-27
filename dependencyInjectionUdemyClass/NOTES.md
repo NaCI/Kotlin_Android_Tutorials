@@ -99,6 +99,11 @@ public class DataAggregator() {
 }
 ```
 
+## Dagger2 Scopes
+
+Component that provide scoped services must be scoped
+
+All clients get the same instance of a scoped service **from same instance** of a Component
 
 ## References
 

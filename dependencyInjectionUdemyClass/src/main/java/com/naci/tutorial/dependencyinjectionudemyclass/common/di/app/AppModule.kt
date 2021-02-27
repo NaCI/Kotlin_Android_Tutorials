@@ -1,4 +1,4 @@
-package com.naci.tutorial.dependencyinjectionudemyclass.common.di
+package com.naci.tutorial.dependencyinjectionudemyclass.common.di.app
 
 import android.app.Application
 import com.naci.tutorial.dependencyinjectionudemyclass.Constants
@@ -24,20 +24,20 @@ class AppModule(private val application: Application) {
      * whenever we want to service global, we need to use lazy for better performance
      */
 
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
+    @Provides
+    fun application() = application
+
+    @Provides
+    @AppScope
+    fun retrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    private val stackoverflowApi: StackoverflowApi by lazy {
+    @Provides
+    @AppScope
+    fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi =
         retrofit.create(StackoverflowApi::class.java)
-    }
-
-    @Provides
-    fun application() = application
-
-    @Provides
-    fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi = stackoverflowApi
 }

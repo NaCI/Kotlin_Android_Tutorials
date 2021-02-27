@@ -1,9 +1,9 @@
 package com.naci.tutorial.dependencyinjectionudemyclass
 
 import android.app.Application
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.AppComponent
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.AppModule
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.DaggerAppComponent
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.app.AppComponent
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.app.AppModule
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.app.DaggerAppComponent
 
 class MyApplication : Application() {
 

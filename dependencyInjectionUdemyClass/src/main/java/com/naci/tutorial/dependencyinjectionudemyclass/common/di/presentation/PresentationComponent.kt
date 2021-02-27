@@ -1,4 +1,4 @@
-package com.naci.tutorial.dependencyinjectionudemyclass.common.di
+package com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation
 
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase

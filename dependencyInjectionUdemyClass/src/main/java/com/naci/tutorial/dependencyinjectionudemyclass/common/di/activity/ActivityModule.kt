@@ -1,7 +1,8 @@
-package com.naci.tutorial.dependencyinjectionudemyclass.common.di
+package com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.app.AppComponent
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
 import dagger.Module
 import dagger.Provides
@@ -11,10 +12,6 @@ class ActivityModule(
     private val activity: AppCompatActivity,
     private val appComponent: AppComponent
 ) {
-    private val screensNavigator by lazy {
-        ScreensNavigator(activity)
-    }
-
     @Provides
     fun activity() = activity
 
@@ -22,7 +19,8 @@ class ActivityModule(
     fun application() = appComponent.application()
 
     @Provides
-    fun screensNavigator() = screensNavigator
+    @ActivityScope
+    fun screensNavigator() = ScreensNavigator(activity)
 
     @Provides
     fun layoutInflater() = LayoutInflater.from(activity)
