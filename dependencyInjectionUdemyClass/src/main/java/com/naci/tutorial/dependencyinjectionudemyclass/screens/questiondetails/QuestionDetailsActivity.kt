@@ -47,10 +47,6 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
         viewMvc = viewMvcFactory.newQuestionDetailsViewMvc(null)
         setContentView(viewMvc.rootView)
 
-        fetchQuestionDetailsUseCase = compositionRoot.fetchQuestionDetailsUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
-
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
     }

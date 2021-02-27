@@ -2,9 +2,7 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.common.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import com.naci.tutorial.dependencyinjectionudemyclass.MyApplication
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.ActivityCompositionRoot
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.Injector
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.PresentationCompositionRoot
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.*
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -14,10 +12,13 @@ open class BaseActivity : AppCompatActivity() {
         ActivityCompositionRoot(this, appCompositionRoot)
     }
 
-    val compositionRoot by lazy {
-        PresentationCompositionRoot(activityCompositionRoot)
+    private val presentationComponent: PresentationComponent by lazy {
+        DaggerPresentationComponent
+            .builder()
+            .presentationModule(PresentationModule(activityCompositionRoot))
+            .build()
     }
 
-    protected val injector get() = Injector(compositionRoot)
+    protected val injector get() = Injector(presentationComponent)
 
 }
