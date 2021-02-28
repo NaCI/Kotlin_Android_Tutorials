@@ -157,6 +157,8 @@ interface PresentationComponent {
 
 - Automatically discovered services can be scoped
 
+- It's best to keep scoped services inside modules in one single place
+
 ## References
 
 - https://www.udemy.com/course/dependency-injection-in-android-with-dagger
