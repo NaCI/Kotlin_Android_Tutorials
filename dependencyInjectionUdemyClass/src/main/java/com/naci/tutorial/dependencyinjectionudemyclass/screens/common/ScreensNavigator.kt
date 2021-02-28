@@ -1,9 +1,12 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.screens.common
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityScope
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.questiondetails.QuestionDetailsActivity
+import javax.inject.Inject
 
-class ScreensNavigator(private val activity: Activity) {
+@ActivityScope
+class ScreensNavigator @Inject constructor(private val activity: AppCompatActivity) {
 
     fun navigateBack() {
         activity.onBackPressed()

@@ -151,11 +151,11 @@ interface PresentationComponent {
 
 - Dagger automatically instantiate modules with no-argument constructors
 
-E.g:
+## Dagger2 Automatic Discovery of Services
 
-```kotlin
+- Dagger can automatically discover services having a public constructor annotated with *@Inject* annotation
 
-```
+- Automatically discovered services can be scoped
 
 ## References
 

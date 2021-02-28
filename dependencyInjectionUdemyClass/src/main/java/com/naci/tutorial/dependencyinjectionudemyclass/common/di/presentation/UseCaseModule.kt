@@ -1,21 +1,11 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation
 
-import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowApi
-import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
-import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
 
 @Module
 class UseCaseModule {
-    @Provides
-    fun fetchQuestionsUseCase(stackoverflowApi: StackoverflowApi) =
-        FetchQuestionsUseCase(stackoverflowApi)
-
-    @Provides
-    fun fetchQuestionDetailsUseCase(stackoverflowApi: StackoverflowApi) =
-        FetchQuestionDetailsUseCase(stackoverflowApi)
 
     @Provides
     @Named("randomDayOfWeek")

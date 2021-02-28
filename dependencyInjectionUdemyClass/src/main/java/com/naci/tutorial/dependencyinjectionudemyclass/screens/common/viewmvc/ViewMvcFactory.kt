@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.questiondetails.QuestionDetailsViewMvc
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.questionslist.QuestionsListViewMvc
+import javax.inject.Inject
 
 /**
  * Creating factories to instantiate objects with runtime parameters is a very general solution
@@ -13,7 +14,7 @@ import com.naci.tutorial.dependencyinjectionudemyclass.screens.questionslist.Que
  * Otherwise, a factory should take in another factory and just delegate to another factory
  * whenever it need specific service.
  */
-class ViewMvcFactory(private val layoutInflater: LayoutInflater) {
+class ViewMvcFactory @Inject constructor(private val layoutInflater: LayoutInflater) {
 
     fun newQuestionListViewMvc(parent: ViewGroup?): QuestionsListViewMvc {
         return QuestionsListViewMvc(layoutInflater, parent)
