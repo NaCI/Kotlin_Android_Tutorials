@@ -101,13 +101,13 @@ public class DataAggregator() {
 
 ## Dagger2 Scopes
 
-Component that provide scoped services must be scoped
+- Component that provide scoped services must be scoped
 
-All clients get the same instance of a scoped service **from same instance** of a Component
+- All clients get the same instance of a scoped service **from same instance** of a Component
 
 ## Dagger2 Injector
 
-Void methods with single argument defined on components, generate injectors for the type of the argument
+- Void methods with single argument defined on components, generate injectors for the type of the argument
 
 E.g:
 
@@ -119,7 +119,7 @@ interface PresentationComponent {
 }
 ```
 
-Client's non-private non-final properties(fields) annotated with @Inject designate injection targets
+- Client's non-private non-final properties(fields) annotated with @Inject designate injection targets
 
 E.g:
 
@@ -131,6 +131,31 @@ class QuestionsListFragment : BaseFragment() {
 }
 ```
 
+## Dagger2 Multi-Module Components
+
+- Components can use multiple modules
+
+- Modules of a Single Component share the same object graph
+
+E.g:
+
+```kotlin
+@PresentationScope
+@Subcomponent(modules = [PresentationModule::class, UseCaseModule::class])
+interface PresentationComponent {
+    ...
+}
+
+// We can use any object which is provided by PresentationModule in the UseCaseModule
+```
+
+- Dagger automatically instantiate modules with no-argument constructors
+
+E.g:
+
+```kotlin
+
+```
 
 ## References
 

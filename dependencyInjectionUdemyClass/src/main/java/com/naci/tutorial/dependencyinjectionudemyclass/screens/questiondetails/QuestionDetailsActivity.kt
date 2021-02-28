@@ -3,6 +3,7 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.activity.BaseActivity
@@ -10,6 +11,7 @@ import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.dialogs.Di
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.viewmvc.ViewMvcFactory
 import kotlinx.coroutines.*
 import javax.inject.Inject
+import javax.inject.Named
 
 class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener {
 
@@ -38,6 +40,10 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
     @Inject
     lateinit var viewMvcFactory: ViewMvcFactory
 
+    @Inject
+    @Named("randomDayOfWeek")
+    lateinit var randomDayOfWeek: String
+
     private lateinit var viewMvc: QuestionDetailsViewMvc
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +55,8 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
+
+        Toast.makeText(this, "Random Day : $randomDayOfWeek", Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {

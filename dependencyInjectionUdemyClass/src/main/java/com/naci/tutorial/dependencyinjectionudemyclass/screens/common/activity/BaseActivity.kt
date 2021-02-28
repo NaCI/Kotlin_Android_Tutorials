@@ -5,7 +5,6 @@ import com.naci.tutorial.dependencyinjectionudemyclass.MyApplication
 import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityComponent
 import com.naci.tutorial.dependencyinjectionudemyclass.common.di.activity.ActivityModule
 import com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation.PresentationComponent
-import com.naci.tutorial.dependencyinjectionudemyclass.common.di.presentation.PresentationModule
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -16,7 +15,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private val presentationComponent: PresentationComponent by lazy {
-        activityComponent.newPresentationComponent(PresentationModule())
+        activityComponent.newPresentationComponent()
     }
 
     protected val injector get() = presentationComponent
