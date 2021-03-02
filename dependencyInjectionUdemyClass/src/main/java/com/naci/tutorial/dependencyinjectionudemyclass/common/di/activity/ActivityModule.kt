@@ -13,6 +13,7 @@ class ActivityModule(
     @Provides
     fun activity() = activity
 
+    @ActivityScope
     @Provides
     fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
 

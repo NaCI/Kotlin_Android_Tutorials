@@ -3,15 +3,27 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.common.dialogs
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
+import android.util.Log
 import com.naci.tutorial.dependencyinjectionudemyclass.R
+import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.ScreensNavigator
+import javax.inject.Inject
+import javax.inject.Named
 
-class ServerErrorDialogFragment : DialogFragment() {
+class ServerErrorDialogFragment : BaseDialog() {
+
+    @Inject
+    @Named("randomDayOfWeek")
+    lateinit var randomDayOfWeek: String
+
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        injector.inject(this)
+        Log.d("TAG", "onCreateDialog: $screensNavigator")
         return AlertDialog.Builder(activity).let {
             it.setTitle(R.string.server_error_dialog_title)
-            it.setMessage(R.string.server_error_dialog_message)
+            it.setMessage(randomDayOfWeek + "\n" + getString(R.string.server_error_dialog_message))
             it.setPositiveButton(R.string.server_error_dialog_button_caption) { _, _ -> dismiss() }
             it.create()
         }
