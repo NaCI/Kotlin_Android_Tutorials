@@ -169,6 +169,27 @@ interface PresentationComponent {
 - @BindsInstance allows for injection of "bootstrapping dependencies" (constructor dependencies for module)
 directly into Component builders
 
+## Dagger2 Type Bindings
+
+- @Binds allow to map specific provided type to another type (e.g. provide implementation of interface)
+
+e.g:
+
+```kotlin
+@Module
+abstract class ActivityModule {
+
+    @Binds
+    abstract fun screensNavigator(screensNavigatorImpl: ScreensNavigatorImpl): ScreensNavigator
+}
+
+interface ScreensNavigator
+
+class ScreensNavigatorImpl: ScreensNavigator
+```
+
+- Custom bindings using @Binds must be defined as abstract functions in abstract modules
+
 ## References
 
 - https://www.udemy.com/course/dependency-injection-in-android-with-dagger
