@@ -31,7 +31,8 @@ Fundamental Dependency Injection Techniques :
     - Cons
         - Can lead to implicit ordering requirements (temporal coupling)
 
-If it is possible, always use construction injection. But in some cases we need to use method or field injection. (e.g Activity - we dont have access to constructor)
+If it is possible, always use construction injection. But in some cases we need to use method or field injection.
+(e.g Activity - we dont have access to constructor)
 
 > *Important Question:*
 > If all clients get their services from outside, who instantiates all these services?
@@ -158,6 +159,15 @@ interface PresentationComponent {
 - Automatically discovered services can be scoped
 
 - It's best to keep scoped services inside modules in one single place
+
+## Dagger2 Component.Builder
+
+- Dagger generates more performant code for static providers in Modules (use companion object or top level object in Kotlin)
+
+- @Component.Builder (or @Subcomponent.Builder) designates inner builder interface for Component
+
+- @BindsInstance allows for injection of "bootstrapping dependencies" (constructor dependencies for module)
+directly into Component builders
 
 ## References
 

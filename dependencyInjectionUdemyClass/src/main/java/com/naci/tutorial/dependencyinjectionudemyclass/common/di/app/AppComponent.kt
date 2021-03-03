@@ -10,6 +10,7 @@ import dagger.Component
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun newActivityComponent(activityModule: ActivityModule): ActivityComponent
+    fun newActivityComponentBuilder(): ActivityComponent.Builder
+
     fun newServiceComponent(serviceModule: ServiceModule): ServiceComponent
 }
