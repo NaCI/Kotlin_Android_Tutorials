@@ -6,6 +6,7 @@ import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.imageloade
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.questiondetails.QuestionDetailsViewMvc
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.questionslist.QuestionsListViewMvc
 import javax.inject.Inject
+import javax.inject.Provider
 
 /**
  * Creating factories to instantiate objects with runtime parameters is a very general solution
@@ -17,7 +18,7 @@ import javax.inject.Inject
  */
 class ViewMvcFactory @Inject constructor(
     private val layoutInflater: LayoutInflater,
-    private val imageLoader: ImageLoader
+    private val imageLoaderProvider: Provider<ImageLoader>
 ) {
 
     fun newQuestionListViewMvc(parent: ViewGroup?): QuestionsListViewMvc {
@@ -25,6 +26,6 @@ class ViewMvcFactory @Inject constructor(
     }
 
     fun newQuestionDetailsViewMvc(parent: ViewGroup?): QuestionDetailsViewMvc {
-        return QuestionDetailsViewMvc(layoutInflater, imageLoader, parent)
+        return QuestionDetailsViewMvc(layoutInflater, imageLoaderProvider.get(), parent)
     }
 }

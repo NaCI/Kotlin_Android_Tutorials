@@ -190,6 +190,16 @@ class ScreensNavigatorImpl: ScreensNavigator
 
 - Custom bindings using @Binds must be defined as abstract functions in abstract modules
 
+## Dagger2 Provider
+
+- Provider<Type> wrappers are "windows" into Dagger's object graph and allow you to retrieve a
+single type of services
+
+- You use providers when you need to perform late injection.
+
+e.g. on serving factory classes as dependency, we can use provider on bootstrapping dependencies
+to get new instance for every object creation of factory
+
 ## References
 
 - https://www.udemy.com/course/dependency-injection-in-android-with-dagger
