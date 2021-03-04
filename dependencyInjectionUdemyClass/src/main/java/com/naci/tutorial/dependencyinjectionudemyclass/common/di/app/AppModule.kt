@@ -1,8 +1,10 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.common.di.app
 
 import android.app.Application
-import com.naci.tutorial.dependencyinjectionudemyclass.Constants
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.qualifier.Retrofit1
+import com.naci.tutorial.dependencyinjectionudemyclass.common.di.qualifier.Retrofit2
 import com.naci.tutorial.dependencyinjectionudemyclass.networking.StackoverflowApi
+import com.naci.tutorial.dependencyinjectionudemyclass.networking.UrlProvider
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -29,15 +31,30 @@ class AppModule(private val application: Application) {
 
     @Provides
     @AppScope
-    fun retrofit(): Retrofit {
+    @Retrofit1
+    fun retrofit1(urlProvider: UrlProvider): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(urlProvider.getBaseUrl1())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     @Provides
     @AppScope
-    fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi =
+    @Retrofit2
+    fun retrofit2(urlProvider: UrlProvider): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(urlProvider.getBaseUrl2())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @AppScope
+    fun urlProvider(): UrlProvider = UrlProvider()
+
+    @Provides
+    @AppScope
+    fun stackoverflowApi(@Retrofit1 retrofit: Retrofit): StackoverflowApi =
         retrofit.create(StackoverflowApi::class.java)
 }

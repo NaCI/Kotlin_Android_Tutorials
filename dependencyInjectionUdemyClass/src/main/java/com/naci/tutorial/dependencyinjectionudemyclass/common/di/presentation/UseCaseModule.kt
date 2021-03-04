@@ -7,6 +7,8 @@ import javax.inject.Named
 @Module
 class UseCaseModule {
 
+    // THIS IS JUST FOR SAMPLE
+    // NORMALLY DON'T PUT DATA STRUCTURES(like Int, String) to DEPENDENCY OBJECT GRAPH
     @Provides
     @Named("randomDayOfWeek")
     fun randomDayOfWeek(@Named("randomNumber") randomNumber: Int): String {
