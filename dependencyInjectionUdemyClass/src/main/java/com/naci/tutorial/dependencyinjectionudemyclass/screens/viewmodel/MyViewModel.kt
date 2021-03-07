@@ -1,14 +1,16 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.screens.viewmodel
 
 import androidx.lifecycle.*
+import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.Question
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MyViewModel(
-    private val fetchQuestionsUseCase: FetchQuestionsUseCase
+class MyViewModel @Inject constructor(
+    private val fetchQuestionsUseCase: FetchQuestionsUseCase,
+    private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 ) : ViewModel() {
 
     private val _questions = MutableLiveData<List<Question>>()
@@ -26,10 +28,10 @@ class MyViewModel(
     }
 
     class Factory @Inject constructor(
-        private val fetchQuestionsUseCaseProvider: Provider<FetchQuestionsUseCase>
+        private val myViewModel: Provider<MyViewModel>
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MyViewModel(fetchQuestionsUseCaseProvider.get()) as T
+            return myViewModel.get() as T
         }
     }
 }
