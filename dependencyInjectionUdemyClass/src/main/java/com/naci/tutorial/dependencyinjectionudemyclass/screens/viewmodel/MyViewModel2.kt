@@ -5,24 +5,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
-import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase
-import com.naci.tutorial.dependencyinjectionudemyclass.questions.Question
+import com.naci.tutorial.dependencyinjectionudemyclass.questions.QuestionWithBody
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MyViewModel @Inject constructor(
-    private val fetchQuestionsUseCase: FetchQuestionsUseCase,
+class MyViewModel2 @Inject constructor(
     private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 ) : ViewModel() {
 
-    private val _questions = MutableLiveData<List<Question>>()
-    val questions: LiveData<List<Question>> = _questions
+    private val _questionWithBody = MutableLiveData<QuestionWithBody>()
+    val questionWithBody: LiveData<QuestionWithBody> = _questionWithBody
 
-    init {
+    fun getQuestionDetail(questionId: String) {
         viewModelScope.launch {
-            val result = fetchQuestionsUseCase.fetchLatestQuestions()
-            if (result is FetchQuestionsUseCase.Result.Success) {
-                _questions.value = result.questions
+            val result = fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId = questionId)
+            if (result is FetchQuestionDetailsUseCase.Result.Success) {
+                _questionWithBody.value = result.questionWithBody
             } else {
                 throw RuntimeException("fetch failed")
             }
