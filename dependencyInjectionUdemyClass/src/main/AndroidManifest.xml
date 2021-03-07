@@ -22,6 +22,8 @@
 
         <activity android:name=".screens.questiondetails.QuestionDetailsActivity" />
 
+        <activity android:name=".screens.viewmodel.ViewModelActivity" />
+
     </application>
 
 </manifest>
