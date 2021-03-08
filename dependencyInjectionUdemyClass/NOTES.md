@@ -200,6 +200,20 @@ single type of services
 e.g. on serving factory classes as dependency, we can use provider on bootstrapping dependencies
 to get new instance for every object creation of factory
 
+## Dagger2 MultiBinding
+
+- @IntoMap annotation can be used to bind multiple services of the same type into Map data structure
+
+e.g. Map multiple different view models to the same type of general view model.
+
+- Keys of individual services in the Map are defined with a custom annotation, annotated with @MapKey annotation
+
+Dagger will automatically provide the following Map:
+
+> Map<key_type, Provider<service_type>>
+
+- Use @JvmSuppressWildCards at injection site to make it work in Kotlin
+
 ## References
 
 - https://www.udemy.com/course/dependency-injection-in-android-with-dagger
