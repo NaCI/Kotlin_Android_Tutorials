@@ -1,28 +1,26 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.screens.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
-import com.naci.tutorial.dependencyinjectionudemyclass.common.viewmodels.SavedStateViewModel
+import androidx.lifecycle.*
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.Question
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MyViewModel @Inject constructor(
     private val fetchQuestionsUseCase: FetchQuestionsUseCase,
-    private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
-) : SavedStateViewModel() {
+    private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
-    private lateinit var _questions: MutableLiveData<List<Question>>
+    private val _questions: MutableLiveData<List<Question>> =
+        savedStateHandle.getLiveData("questions")
     val questions: LiveData<List<Question>> get() = _questions
 
-    override fun init(savedStateHandle: SavedStateHandle) {
-        _questions = savedStateHandle.getLiveData("questions")
-
+    init {
         viewModelScope.launch {
             delay(5000)
             val result = fetchQuestionsUseCase.fetchLatestQuestions()

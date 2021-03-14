@@ -1,13 +1,10 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.common.di.service
 
-import android.app.Service
 import dagger.Module
-import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ServiceComponent
 
 @Module
-class ServiceModule(
-    private val service: Service
-) {
-    @Provides
-    fun context() = service
+@InstallIn(ServiceComponent::class)
+object ServiceModule {
 }

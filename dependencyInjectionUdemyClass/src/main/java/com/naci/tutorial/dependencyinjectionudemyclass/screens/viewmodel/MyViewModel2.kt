@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.QuestionWithBody
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MyViewModel2 @Inject constructor(
     private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
 ) : ViewModel() {

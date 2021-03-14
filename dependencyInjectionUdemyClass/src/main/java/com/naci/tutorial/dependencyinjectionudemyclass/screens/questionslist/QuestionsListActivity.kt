@@ -3,7 +3,9 @@ package com.naci.tutorial.dependencyinjectionudemyclass.screens.questionslist
 import android.os.Bundle
 import com.naci.tutorial.dependencyinjectionudemyclass.R
 import com.naci.tutorial.dependencyinjectionudemyclass.screens.common.activity.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QuestionsListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
