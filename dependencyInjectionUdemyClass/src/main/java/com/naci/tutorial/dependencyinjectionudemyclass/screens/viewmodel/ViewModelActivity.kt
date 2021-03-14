@@ -20,10 +20,15 @@ class ViewModelActivity : BaseActivity() {
     @Inject
     lateinit var screensNavigator: ScreensNavigator
 
-    // New style initialization
-    private val myViewModel: MyViewModel by viewModels()
+    @Inject
+    lateinit var myViewModelFactory: MyViewModel.AssistedFactory
 
-    // Old-fashioned initialization
+    // New style viewmodel initialization
+    private val myViewModel: MyViewModel by viewModels {
+        MyViewModel.provideFactory(myViewModelFactory, this, 30)
+    }
+
+    // Old-fashioned viewmodel initialization
     private lateinit var myViewModel2: MyViewModel2
 
     private lateinit var toolbar: MyToolbar

@@ -1,9 +1,6 @@
 package com.naci.tutorial.dependencyinjectionudemyclass.screens.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.FetchQuestionDetailsUseCase
 import com.naci.tutorial.dependencyinjectionudemyclass.questions.QuestionWithBody
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,10 +9,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel2 @Inject constructor(
-    private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _questionWithBody = MutableLiveData<QuestionWithBody>()
+    private val _questionWithBody: MutableLiveData<QuestionWithBody> =
+        savedStateHandle.getLiveData("questionWithBody")
     val questionWithBody: LiveData<QuestionWithBody> = _questionWithBody
 
     fun getQuestionDetail(questionId: String) {

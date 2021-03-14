@@ -13,10 +13,10 @@ class FetchQuestionsUseCase @Inject constructor(private val stackoverflowApi: St
         object Failure : Result()
     }
 
-    suspend fun fetchLatestQuestions(): Result {
+    suspend fun fetchLatestQuestions(pageSize: Int = 20): Result {
         return withContext(Dispatchers.IO) {
             try {
-                val response = stackoverflowApi.lastActiveQuestions(20)
+                val response = stackoverflowApi.lastActiveQuestions(pageSize)
                 if (response.isSuccessful && response.body() != null) {
                     return@withContext Result.Success(response.body()!!.questions)
                 } else {
