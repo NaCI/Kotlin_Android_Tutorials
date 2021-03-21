@@ -1,49 +1,54 @@
 package com.naci.tutorial.kotlincoroutinesudemclass.common
 
 import android.os.Bundle
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.backgroundthread.BackgroundThreadDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.home.HomeFragment
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavController.RootFragmentListener
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread.UiThreadDemoFragment
 
-class ScreensNavigator(private val mFragNavController: FragNavController) {
+class ScreensNavigator(private val fragNavController: FragNavController) {
 
     fun init(savedInstanceState: Bundle?) {
-        mFragNavController.rootFragmentListener = object : RootFragmentListener {
+        fragNavController.rootFragmentListener = object : RootFragmentListener {
             override val numberOfRootFragments get() = 1
 
             override fun getRootFragment(index: Int) = HomeFragment.newInstance()
         }
 
-        mFragNavController.initialize(FragNavController.TAB1, savedInstanceState)
+        fragNavController.initialize(FragNavController.TAB1, savedInstanceState)
     }
 
     fun onSaveInstanceState(outState: Bundle?) {
-        mFragNavController.onSaveInstanceState(outState)
+        fragNavController.onSaveInstanceState(outState)
     }
 
-    fun isRootScreen() = mFragNavController.isRootFragment
+    fun isRootScreen() = fragNavController.isRootFragment
 
     fun navigateBack(): Boolean {
-        if (mFragNavController.isRootFragment) {
+        if (fragNavController.isRootFragment) {
             return false
         } else {
-            mFragNavController.popFragment()
+            fragNavController.popFragment()
             return true
         }
     }
 
     fun navigateUp() {
-        mFragNavController.popFragment()
+        fragNavController.popFragment()
     }
 
     fun toHomeScreen() {
-        mFragNavController.clearStack()
-        mFragNavController.pushFragment(HomeFragment.newInstance())
+        fragNavController.clearStack()
+        fragNavController.pushFragment(HomeFragment.newInstance())
     }
 
-    fun toUiThreadDemonstration() {
-        mFragNavController.pushFragment(UiThreadDemoFragment.newInstance())
+    fun toUiThreadDemo() {
+        fragNavController.pushFragment(UiThreadDemoFragment.newInstance())
+    }
+
+    fun toBackgroundThreadDemo() {
+        fragNavController.pushFragment(BackgroundThreadDemoFragment.newInstance())
     }
 
 }

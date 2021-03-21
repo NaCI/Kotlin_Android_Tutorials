@@ -1,4 +1,4 @@
-package com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread
+package com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.backgroundthread
 
 import android.os.Bundle
 import android.os.Handler
@@ -15,9 +15,9 @@ import com.naci.tutorial.kotlincoroutinesudemclass.common.BaseFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.common.ThreadInfoLogger
 import com.naci.tutorial.kotlincoroutinesudemclass.home.ScreenReachableFromHome
 
-class UiThreadDemoFragment : BaseFragment() {
+class BackgroundThreadDemoFragment : BaseFragment() {
 
-    override val screenTitle get() = ScreenReachableFromHome.UI_THREAD_DEMO.description
+    override val screenTitle get() = ScreenReachableFromHome.BACKGROUND_THREAD_DEMO.description
 
     private lateinit var btnStart: Button
     private lateinit var txtRemainingTime: TextView
@@ -47,18 +47,24 @@ class UiThreadDemoFragment : BaseFragment() {
 
         updateRemainingTime(benchmarkDurationSeconds)
 
-        logThreadInfo("benchmark started")
+        Thread {
+            logThreadInfo("benchmark started")
 
-        val stopTimeNano = System.nanoTime() + benchmarkDurationSeconds * 1_000_000_000L
+            val stopTimeNano = System.nanoTime() + benchmarkDurationSeconds * 1_000_000_000L
 
-        var iterationsCount: Long = 0
-        while (System.nanoTime() < stopTimeNano) {
-            iterationsCount++
-        }
+            var iterationsCount: Long = 0
+            while (System.nanoTime() < stopTimeNano) {
+                iterationsCount++
+            }
 
-        logThreadInfo("benchmark completed")
+            logThreadInfo("benchmark completed")
 
-        Toast.makeText(requireContext(), "$iterationsCount", Toast.LENGTH_SHORT).show()
+            Handler(Looper.getMainLooper()).post {
+                Toast.makeText(requireContext(), "$iterationsCount", Toast.LENGTH_SHORT).show()
+            }
+
+        }.start()
+
     }
 
     private fun updateRemainingTime(remainingTimeSeconds: Int) {
@@ -81,7 +87,7 @@ class UiThreadDemoFragment : BaseFragment() {
 
     companion object {
         fun newInstance(): Fragment {
-            return UiThreadDemoFragment()
+            return BackgroundThreadDemoFragment()
         }
     }
 }
