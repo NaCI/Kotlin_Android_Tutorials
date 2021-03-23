@@ -2,10 +2,11 @@ package com.naci.tutorial.kotlincoroutinesudemclass.common
 
 import android.os.Bundle
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.backgroundthread.BackgroundThreadDemoFragment
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.basiccoroutines.BasicCoroutinesDemoFragment
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread.UiThreadDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.home.HomeFragment
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavController.RootFragmentListener
-import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread.UiThreadDemoFragment
 
 class ScreensNavigator(private val fragNavController: FragNavController) {
 
@@ -51,4 +52,7 @@ class ScreensNavigator(private val fragNavController: FragNavController) {
         fragNavController.pushFragment(BackgroundThreadDemoFragment.newInstance())
     }
 
+    fun toBasicCoroutinesDemo() {
+        fragNavController.pushFragment(BasicCoroutinesDemoFragment.newInstance())
+    }
 }
