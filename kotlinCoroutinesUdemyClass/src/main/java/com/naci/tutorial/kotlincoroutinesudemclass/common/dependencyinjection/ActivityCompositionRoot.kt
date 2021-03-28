@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import com.naci.tutorial.kotlincoroutinesudemclass.R
 import com.naci.tutorial.kotlincoroutinesudemclass.common.ScreensNavigator
 import com.naci.tutorial.kotlincoroutinesudemclass.common.ToolbarDelegate
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.GetReputationEndpoint
 import com.ncapdevi.fragnav.FragNavController
 
 class ActivityCompositionRoot(
@@ -21,5 +22,5 @@ class ActivityCompositionRoot(
 
     private val fragmentManager get() = activity.supportFragmentManager
 
-
+    val getReputationEndpoint get() = GetReputationEndpoint()
 }
