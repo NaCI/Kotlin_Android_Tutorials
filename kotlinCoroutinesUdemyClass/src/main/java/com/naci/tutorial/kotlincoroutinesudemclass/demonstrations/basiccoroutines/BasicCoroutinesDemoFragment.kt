@@ -14,14 +14,12 @@ import com.naci.tutorial.kotlincoroutinesudemclass.R
 import com.naci.tutorial.kotlincoroutinesudemclass.common.BaseFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.common.ThreadInfoLogger
 import com.naci.tutorial.kotlincoroutinesudemclass.home.ScreenReachableFromHome
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class BasicCoroutinesDemoFragment : BaseFragment() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main.immediate)
+    private var job: Job? = null
 
     override val screenTitle get() = ScreenReachableFromHome.UI_THREAD_DEMO.description
 
@@ -41,7 +39,7 @@ class BasicCoroutinesDemoFragment : BaseFragment() {
         btnStart.setOnClickListener {
             logThreadInfo("button callback")
 
-            coroutineScope.launch {
+            job = coroutineScope.launch {
                 btnStart.isEnabled = false
                 val iterationsCount = executeBenchmark()
                 Toast.makeText(requireContext(), "$iterationsCount", Toast.LENGTH_SHORT).show()
@@ -50,6 +48,13 @@ class BasicCoroutinesDemoFragment : BaseFragment() {
         }
 
         return view
+    }
+
+    override fun onStop() {
+        logThreadInfo("onStop()")
+        super.onStop()
+        job?.cancel()
+        btnStart.isEnabled = true
     }
 
     private suspend fun executeBenchmark(): Long {
