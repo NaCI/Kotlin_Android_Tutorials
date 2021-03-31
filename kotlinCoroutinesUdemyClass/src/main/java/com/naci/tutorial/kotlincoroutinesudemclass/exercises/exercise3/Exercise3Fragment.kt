@@ -31,7 +31,7 @@ class Exercise3Fragment : BaseFragment() {
 
     private lateinit var getReputationEndpoint: GetReputationEndpoint
 
-    private var job: Job? = null
+    private var jobElapsedTime: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,23 +61,36 @@ class Exercise3Fragment : BaseFragment() {
         btnGetReputation = view.findViewById(R.id.btn_get_reputation)
         btnGetReputation.setOnClickListener {
             logThreadInfo("button callback")
-            job = coroutineScope.launch {
+            jobElapsedTime = coroutineScope.launch {
+                updateElapsedTime()
+            }
+            /*job = */coroutineScope.launch {
                 btnGetReputation.isEnabled = false
                 val reputation = getReputationForUser(edtUserId.text.toString())
                 Toast.makeText(requireContext(), "reputation: $reputation", Toast.LENGTH_SHORT)
                     .show()
                 btnGetReputation.isEnabled = true
+                jobElapsedTime?.cancel()
             }
-            coroutineScope.launch {
+            /*coroutineScope.launch {
                 val elapsedTime = calculateElapsedTime()
                 txtElapsedTime.text = "$elapsedTime MS"
-            }
+            }*/
         }
-
         return view
     }
 
-    private suspend fun calculateElapsedTime(): Long {
+    private suspend fun updateElapsedTime() {
+        val startNanoTime = System.nanoTime()
+        while (true) {
+            delay(100)
+            val elapsedTimeNano = System.nanoTime() - startNanoTime
+            val elapsedTimeMs = elapsedTimeNano / 1000000
+            txtElapsedTime.text = "Elapsed time $elapsedTimeMs ms"
+        }
+    }
+
+    /*private suspend fun calculateElapsedTime(): Long {
         return withContext(Dispatchers.Default) {
             if (job == null) {
                 return@withContext 0
@@ -89,7 +102,7 @@ class Exercise3Fragment : BaseFragment() {
             }
             elapsedTimeInMillis
         }
-    }
+    }*/
 
     override fun onStop() {
         super.onStop()
