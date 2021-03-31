@@ -7,6 +7,7 @@ import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.concurrentcoro
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread.UiThreadDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.Exercise1Fragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise2.Exercise2Fragment
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise3.Exercise3Fragment
 import com.naci.tutorial.kotlincoroutinesudemclass.home.HomeFragment
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavController.RootFragmentListener
@@ -69,5 +70,9 @@ class ScreensNavigator(private val fragNavController: FragNavController) {
 
     fun toConcurrentCoroutines() {
         fragNavController.pushFragment(ConcurrentCoroutinesDemoFragment.newInstance())
+    }
+
+    fun toExercise3() {
+        fragNavController.pushFragment(Exercise3Fragment.newInstance())
     }
 }
