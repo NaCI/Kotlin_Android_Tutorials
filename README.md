@@ -29,6 +29,6 @@ RxJavaUdemyClassCaseStudy2 -> Udemy Class Sample - RxJava with Retrofit - flatMa
 
 RxJavaUdemyClassCaseStudy3 -> Udemy Class Sample - RxJava with Room - Completable.fromAction - Observable Select query - MVVM
 
-RxJavaThrottleAllClicks -> Throttle all click events via DataBinding - RxBinding - AndroidX.Lifecycle - BindingAdapter - RxBus
+RxJavaThrottleAllClicks -> Throttle all click events via DataBinding - RxBinding - AndroidX.Lifecycle - BindingAdapter - RxBus - (BONUS)Markdown link format tfor textview
 
 DependencyInjectionUdemyClass -> Implementation of DI on sample app - Dependency Injection Arhitectural Pattern - Clean Code - Pure DI - MVC - Dagger 2 - MVVM - Dagger HILT - **Includes Notes about DI**

@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         binding.clickListener = ButtonClickListener { buttonName ->
             Timber.i("$buttonName clicked")
         }
+
+        binding.tvMarkdownContent.formatToMarkdownText(MARKDOWN_FORMATTED_TEXT)
     }
 
     private fun listenRxBusEvent() {
