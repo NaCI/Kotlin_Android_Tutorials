@@ -5,6 +5,7 @@ import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.backgroundthre
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.basiccoroutines.BasicCoroutinesDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.concurrentcoroutines.ConcurrentCoroutinesDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread.UiThreadDemoFragment
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.viewmodel.ViewModelDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.Exercise1Fragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise2.Exercise2Fragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise3.Exercise3Fragment
@@ -74,5 +75,9 @@ class ScreensNavigator(private val fragNavController: FragNavController) {
 
     fun toExercise3() {
         fragNavController.pushFragment(Exercise3Fragment.newInstance())
+    }
+
+    fun toViewModel() {
+        fragNavController.pushFragment(ViewModelDemoFragment.newInstance())
     }
 }
