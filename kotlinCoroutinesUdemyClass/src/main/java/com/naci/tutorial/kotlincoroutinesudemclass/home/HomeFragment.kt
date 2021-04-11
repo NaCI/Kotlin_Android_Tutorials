@@ -44,6 +44,7 @@ class HomeFragment : BaseFragment(), HomeArrayAdapter.Listener {
             ScreenReachableFromHome.CONCURRENT_COROUTINES_DEMO -> screensNavigator.toConcurrentCoroutines()
             ScreenReachableFromHome.EXERCISE_3 -> screensNavigator.toExercise3()
             ScreenReachableFromHome.VIEWMODEL_DEMO -> screensNavigator.toViewModel()
+            ScreenReachableFromHome.EXERCISE_4 -> screensNavigator.toExercise4()
         }
     }
 
