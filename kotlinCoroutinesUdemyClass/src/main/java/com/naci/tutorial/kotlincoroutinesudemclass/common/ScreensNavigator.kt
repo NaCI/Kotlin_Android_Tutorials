@@ -13,6 +13,7 @@ import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise4.Exercise4
 import com.naci.tutorial.kotlincoroutinesudemclass.home.HomeFragment
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavController.RootFragmentListener
+import com.techyourchance.coroutines.demonstrations.design.DesignDemoFragment
 
 class ScreensNavigator(private val fragNavController: FragNavController) {
 
@@ -84,5 +85,9 @@ class ScreensNavigator(private val fragNavController: FragNavController) {
 
     fun toExercise4() {
         fragNavController.pushFragment(Exercise4Fragment.newInstance())
+    }
+
+    fun toDesignDemo() {
+        fragNavController.pushFragment(DesignDemoFragment.newInstance())
     }
 }

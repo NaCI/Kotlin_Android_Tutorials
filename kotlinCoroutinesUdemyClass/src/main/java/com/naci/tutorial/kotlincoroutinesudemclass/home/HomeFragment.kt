@@ -45,6 +45,7 @@ class HomeFragment : BaseFragment(), HomeArrayAdapter.Listener {
             ScreenReachableFromHome.EXERCISE_3 -> screensNavigator.toExercise3()
             ScreenReachableFromHome.VIEWMODEL_DEMO -> screensNavigator.toViewModel()
             ScreenReachableFromHome.EXERCISE_4 -> screensNavigator.toExercise4()
+            ScreenReachableFromHome.DESIGN_DEMO -> screensNavigator.toDesignDemo()
         }
     }
 
