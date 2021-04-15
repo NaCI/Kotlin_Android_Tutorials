@@ -27,3 +27,55 @@ Instead use UseCase's(interactors) for operations (Background thread operations)
 to run on other threads
 
 ![design course](./art/design_course.png)
+
+## Dispatchers
+
+Dispatchers are responsible for “dispatching” coroutines
+to the underlying threads
+
+List of Dispatcher in Android:
+
+- Dispatchers.Main
+
+- Dispatchers.Main.immediate
+
+- Dispatchers.Default
+
+- Dispatchers.IO
+
+- Dispatchers.unconfined
+
+What’s the added benefit of “immediate” Main Dispatcher?
+
+### Dispatchers.Main
+
+Behaves like Handler( Looper.getMainLooper ()). 
+(It will be added to main thread queue and will be called when in turn)
+
+### Dispatchers.Main.immediate
+
+Behaves like Activity.runOnUiThread (it will be run immediately)
+
+> **Best Practise : ** Use Dispatchers.Main.immediate to execute code on UI thread, 
+unless you have a reason not to 
+
+### Dispatchers.Default
+
+Thread pool with maxThreads = max(2, NUM_OF_CPU_CORES)
+
+Used for computation intensive tasks
+
+### Dispatchers.IO:
+
+Thread pool with maxThreads = max(64, NUM_OF_CPU_CORES)
+
+Maximum number of threads can be further increased by adjusting system proprties
+
+Used for IO tasks (tasks which are mostly “waiting”)
+
+> Use Dispatchers.IO for time consuming tasks like network request, db operations, writing or
+reading from file etc.
+
+## REFERENCES
+
+https://www.udemy.com/course/kotlin-coroutines-in-android
