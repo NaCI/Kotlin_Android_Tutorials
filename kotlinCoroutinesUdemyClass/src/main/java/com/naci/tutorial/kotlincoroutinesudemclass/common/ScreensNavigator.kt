@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.backgroundthread.BackgroundThreadDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.basiccoroutines.BasicCoroutinesDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.concurrentcoroutines.ConcurrentCoroutinesDemoFragment
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.coroutinescancellation.CoroutinesCancellationDemoFragment
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.design.DesignDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread.UiThreadDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.viewmodel.ViewModelDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.Exercise1Fragment
@@ -13,7 +15,6 @@ import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise4.Exercise4
 import com.naci.tutorial.kotlincoroutinesudemclass.home.HomeFragment
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavController.RootFragmentListener
-import com.techyourchance.coroutines.demonstrations.design.DesignDemoFragment
 
 class ScreensNavigator(private val fragNavController: FragNavController) {
 
@@ -89,5 +90,9 @@ class ScreensNavigator(private val fragNavController: FragNavController) {
 
     fun toDesignDemo() {
         fragNavController.pushFragment(DesignDemoFragment.newInstance())
+    }
+
+    fun toCoroutinesCancellationDemo() {
+        fragNavController.pushFragment(CoroutinesCancellationDemoFragment.newInstance())
     }
 }

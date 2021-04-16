@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import com.naci.tutorial.kotlincoroutinesudemclass.R
 import com.naci.tutorial.kotlincoroutinesudemclass.common.ScreensNavigator
 import com.naci.tutorial.kotlincoroutinesudemclass.common.ToolbarDelegate
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.coroutinescancellation.CancellableBenchmarkUseCase
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.design.BenchmarkUseCase
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.GetReputationEndpoint
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise4.FactorialUseCase
@@ -29,4 +30,6 @@ class ActivityCompositionRoot(
     val factorialUseCase get() = FactorialUseCase()
 
     val benchmarkUseCase get() = BenchmarkUseCase()
+
+    val cancellableBenchmarkUseCase get() = CancellableBenchmarkUseCase()
 }

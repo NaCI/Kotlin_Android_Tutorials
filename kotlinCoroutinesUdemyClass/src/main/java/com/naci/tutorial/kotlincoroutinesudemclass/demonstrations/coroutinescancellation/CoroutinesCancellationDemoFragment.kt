@@ -1,4 +1,4 @@
-package com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.design
+package com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.coroutinescancellation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,23 +14,20 @@ import com.naci.tutorial.kotlincoroutinesudemclass.common.ThreadInfoLogger
 import com.naci.tutorial.kotlincoroutinesudemclass.home.ScreenReachableFromHome
 import kotlinx.coroutines.*
 
-class DesignDemoFragment : BaseFragment() {
+class CoroutinesCancellationDemoFragment : BaseFragment() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main.immediate)
 
     override val screenTitle get() = ScreenReachableFromHome.DESIGN_DEMO.description
 
-    private lateinit var benchmarkUseCase: BenchmarkUseCase
+    private lateinit var cancellableBenchmarkUseCase: CancellableBenchmarkUseCase
 
     private lateinit var btnStart: Button
     private lateinit var txtRemainingTime: TextView
 
-    private var hasBenchmarkBeenStartedOnce = false
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        benchmarkUseCase = compositionRoot.benchmarkUseCase
+        cancellableBenchmarkUseCase = compositionRoot.cancellableBenchmarkUseCase
     }
 
     override fun onCreateView(
@@ -53,13 +50,19 @@ class DesignDemoFragment : BaseFragment() {
             }
 
             coroutineScope.launch {
-                btnStart.isEnabled = false
-                val iterationsCount = benchmarkUseCase.executeBenchmark(benchmarkDurationSeconds)
-                Toast.makeText(requireContext(), "$iterationsCount", Toast.LENGTH_SHORT).show()
-                btnStart.isEnabled = true
+                try {
+                    btnStart.isEnabled = false
+                    val iterationsCount =
+                        cancellableBenchmarkUseCase.executeBenchmark(benchmarkDurationSeconds)
+                    Toast.makeText(requireContext(), "$iterationsCount", Toast.LENGTH_SHORT).show()
+                    btnStart.isEnabled = true
+                } catch (e: CancellationException) {
+                    btnStart.isEnabled = true
+                    txtRemainingTime.text = "done!"
+                    logThreadInfo("coroutine cancelled")
+                    Toast.makeText(requireContext(), "cancelled", Toast.LENGTH_SHORT).show()
+                }
             }
-
-            hasBenchmarkBeenStartedOnce = true
         }
 
         return view
@@ -69,10 +72,6 @@ class DesignDemoFragment : BaseFragment() {
         logThreadInfo("onStop()")
         super.onStop()
         coroutineScope.coroutineContext.cancelChildren()
-        if (hasBenchmarkBeenStartedOnce) {
-            btnStart.isEnabled = true
-            txtRemainingTime.text = "done!"
-        }
     }
 
 
@@ -94,7 +93,7 @@ class DesignDemoFragment : BaseFragment() {
 
     companion object {
         fun newInstance(): Fragment {
-            return DesignDemoFragment()
+            return CoroutinesCancellationDemoFragment()
         }
     }
 }
