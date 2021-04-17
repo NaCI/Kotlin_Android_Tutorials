@@ -8,13 +8,14 @@ import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.coroutinescanc
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.design.BenchmarkUseCase
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.GetReputationEndpoint
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise4.FactorialUseCase
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise6.Exercise6BenchmarkUseCase
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise6.PostBenchmarkResultsEndpoint
 import com.ncapdevi.fragnav.FragNavController
 
 class ActivityCompositionRoot(
     private val activity: FragmentActivity,
     private val appCompositionRoot: ApplicationCompositionRoot
 ) {
-
     val toolbarManipulator get() = activity as ToolbarDelegate
 
     val screensNavigator: ScreensNavigator by lazy {
@@ -32,4 +33,8 @@ class ActivityCompositionRoot(
     val benchmarkUseCase get() = BenchmarkUseCase()
 
     val cancellableBenchmarkUseCase get() = CancellableBenchmarkUseCase()
+
+    private val postBenchmarkResultsEndpoint get() = PostBenchmarkResultsEndpoint()
+
+    val exercise6BenchmarkUseCase get() = Exercise6BenchmarkUseCase(postBenchmarkResultsEndpoint)
 }

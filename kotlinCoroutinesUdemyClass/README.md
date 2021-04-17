@@ -76,6 +76,33 @@ Used for IO tasks (tasks which are mostly “waiting”)
 > Use Dispatchers.IO for time consuming tasks like network request, db operations, writing or
 reading from file etc.
 
+## Coroutines Cancellation
+
+Two methods used to cancel coroutine
+
+- coroutineScope.coroutineContext.cancelChildren
+
+- coroutineScope.cancel
+
+> cancelled: CoroutineScope becomes “dead” and can’t be used to launch new
+coroutines (silently discards launch attempts)
+
+Whenever a coroutine cancelled, a CancellationException thrown -
+as long as withContext (or delay) function is called inside the suspending function.
+
+E.g.
+
+```kotlin
+suspend fun executeBenchmark(benchmarkDurationSeconds: Int) = withContext(Dispatchers.Default) {
+   // code goes here
+}
+```
+
+We use isActive or coroutineContext.isActive to check if coroutine is not cancelled yet inside
+suspending function.
+
+*ensureActive()* : Check if coroutine still active otherwise throws CancellationException
+
 ## REFERENCES
 
 https://www.udemy.com/course/kotlin-coroutines-in-android
