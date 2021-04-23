@@ -48,6 +48,7 @@ class HomeFragment : BaseFragment(), HomeArrayAdapter.Listener {
             ScreenReachableFromHome.DESIGN_DEMO -> screensNavigator.toDesignDemo()
             ScreenReachableFromHome.COROUTINES_CANCELLATION_DEMO -> screensNavigator.toCoroutinesCancellationDemo()
             ScreenReachableFromHome.EXERCISE_6 -> screensNavigator.toExercise6()
+            ScreenReachableFromHome.NON_CANCELLABLE_DEMO -> screensNavigator.toNonCancellableDemo()
         }
     }
 

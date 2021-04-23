@@ -6,6 +6,7 @@ import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.basiccoroutine
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.concurrentcoroutines.ConcurrentCoroutinesDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.coroutinescancellation.CoroutinesCancellationDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.design.DesignDemoFragment
+import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.noncancellable.NonCancellableDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.uithread.UiThreadDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.demonstrations.viewmodel.ViewModelDemoFragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.Exercise1Fragment
@@ -99,5 +100,9 @@ class ScreensNavigator(private val fragNavController: FragNavController) {
 
     fun toExercise6() {
         fragNavController.pushFragment(Exercise6Fragment.newInstance())
+    }
+
+    fun toNonCancellableDemo() {
+        fragNavController.pushFragment(NonCancellableDemoFragment.newInstance())
     }
 }

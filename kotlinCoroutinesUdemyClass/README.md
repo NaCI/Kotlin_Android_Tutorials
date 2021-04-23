@@ -103,6 +103,21 @@ suspending function.
 
 *ensureActive()* : Check if coroutine still active otherwise throws CancellationException
 
+### Non-cancellable Jobs
+
+We use non-cancellable jobs to make sure all tasks completed -even if
+it is cancelled in the middle of execution- in suspending function.
+
+Example: updating db after network response
+
+Usage:
+
+```kotlin
+withContext(NonCancellable)
+// --------- or -----------
+withContext(Dispatchers.Default + NonCancellable)
+```
+
 ## REFERENCES
 
 https://www.udemy.com/course/kotlin-coroutines-in-android
