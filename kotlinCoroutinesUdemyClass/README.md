@@ -118,6 +118,54 @@ withContext(NonCancellable)
 withContext(Dispatchers.Default + NonCancellable)
 ```
 
+### Coroutine Mechanics
+
+Main building blocks of coroutines:
+
+- CoroutineScope
+
+- CoroutineContext
+
+- CoroutineDispatcher
+
+- Job
+
+CoroutineScope needs context in order to initialize. And that context arguments could be : Job - CoroutineName - Dispatcher
+
+```kotlin
+CoroutineScope(Job() + CoroutineName("outer scope") + Dispatchers.IO)
+```
+
+Same rules available for coroutineScope.launch method
+
+> Launching a new coroutine is concurrent process, unlike withContext block which is stuctured concurrency works.
+withContext simply uses to change context (thread)
+
+Whenever coroutine launch method calls new CoroutineScope and Job creates.
+
+> *job.join()* method uses on unit test inorder to wait for corotine job end
+
+There is a hierarchy between the coroutine jobs which is called inside other.
+Check out : CoroutinesMechanicsExplorationsTest.coroutineScope_jobsHierarchy()
+
+Until there is no specific declaration made, coroutines uses outer scopes data.
+
+> *withContext* block checks for cancellation signal on the begining and the end of the code lines
+
+> **IMPORTANT NOTE: **NonCancellable is designed for withContext exclusively!
+
+Nested WithContext Examination
+
+![nestedWithContext](./art/nestedWithContext.png)
+
+Nested Coroutine Examination
+
+![nestedCoroutine](./art/nestedCoroutine.png)
+
+Nested Coroutine On Standalone Scope Examination
+
+![nestedCoroutineOnStandaloneScope](./art/nestedCoroutineOnStandaloneScope.png)
+
 ## REFERENCES
 
 https://www.udemy.com/course/kotlin-coroutines-in-android
