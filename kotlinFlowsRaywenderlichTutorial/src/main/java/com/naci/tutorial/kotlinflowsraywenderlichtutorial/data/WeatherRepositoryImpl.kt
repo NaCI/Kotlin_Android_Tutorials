@@ -37,6 +37,7 @@ import com.naci.tutorial.kotlinflowsraywenderlichtutorial.data.network.mapper.Ap
 import com.naci.tutorial.kotlinflowsraywenderlichtutorial.domain.model.Location
 import com.naci.tutorial.kotlinflowsraywenderlichtutorial.domain.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class WeatherRepositoryImpl(
@@ -46,6 +47,14 @@ class WeatherRepositoryImpl(
     private val forecastDao: ForecastDao,
     private val dbMapper: DbMapper
 ) : WeatherRepository {
+
+    override fun getForecasts() =
+        forecastDao
+            .getForecasts()
+            .map {
+                dbMapper.mapDbForecastsToDomain(it)
+//                throw IllegalStateException("nope")
+            }
 
     override suspend fun findLocation(location: String) = withContext(backgroundDispatcher) {
         try {

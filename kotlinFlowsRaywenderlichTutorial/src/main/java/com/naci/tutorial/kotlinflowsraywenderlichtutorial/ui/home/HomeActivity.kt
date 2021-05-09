@@ -67,6 +67,11 @@ class HomeActivity : AppCompatActivity() {
         initSearchBar()
         initRecyclerView()
         initObservers()
+        fetchLocationDetails(851128)
+    }
+
+    private fun fetchLocationDetails(cityId: Int) {
+        homeViewModel.fetchLocationDetails(cityId)
     }
 
     private fun initSearchBar() {
@@ -98,10 +103,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
+        homeViewModel.forecasts.observe(this, {
+            forecastAdapter.setData(it)
+        })
+        homeViewModel.locations.observe(this, {
+            locationAdapter.setData(it)
+        })
     }
 
     private fun onLocationClick(locationViewState: LocationViewState) {
         homeViewModel.queryChannel.offer("")
         homeViewModel.fetchLocationDetails(locationViewState.id)
+        binding.locationTitle.text = locationViewState.location
     }
 }
