@@ -6,11 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 private const val TAG = "MainActivity"
 
@@ -81,24 +78,27 @@ class MainActivity : AppCompatActivity() {
         secondFlow = flowOf("bahçe", "spor", "antep").flowOn(Dispatchers.Default)
     }
 
+    @ExperimentalCoroutinesApi
     private fun setupClicks() {
-        findViewById<AppCompatButton>(R.id.button).setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                myFlow.collect {
-                    Log.d(TAG, "myFlow collect: $it")
+        findViewById<AppCompatButton>(R.id.button).clicks()
+            .throttleFirst(5000)
+            .onEach {
+                CoroutineScope(Dispatchers.Main).launch {
+                    myFlow.collect {
+                        Log.d(TAG, "myFlow collect: $it")
+                    }
+                    carFlow.collect {
+                        Log.d(TAG, "carFlow collect: $it")
+                    }
+                    anotherFlow.collect {
+                        Log.d(TAG, "anotherFlow collect: $it")
+                    }
+                    firstFlow.zip(secondFlow) { firstData, secondData ->
+                        "$firstData $secondData"
+                    }.collect {
+                        Log.d(TAG, "zipped flow data: $it")
+                    }
                 }
-                carFlow.collect {
-                    Log.d(TAG, "carFlow collect: $it")
-                }
-                anotherFlow.collect {
-                    Log.d(TAG, "anotherFlow collect: $it")
-                }
-                firstFlow.zip(secondFlow) { firstData, secondData ->
-                    "$firstData $secondData"
-                }.collect {
-                    Log.d(TAG, "zipped flow data: $it")
-                }
-            }
-        }
+            }.launchIn(GlobalScope)
     }
 }
