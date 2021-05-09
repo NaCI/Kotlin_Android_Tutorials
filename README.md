@@ -21,7 +21,7 @@ UdacityAdvancedTutorial10 -> Unit and Instrumented Tests - Fake - Mock - Espress
 
 RxJavaTutorial1 -> Basic RxJava and RxAndroid - Observable - Observer - CompositeDisposable
 
-RxJavaUdemyClass -> Udemy Class Samples - *Includes README*
+RxJavaUdemyClass -> Udemy Class Samples - **Includes README**
 
 RxJavaUdemyClassCaseStudy1 -> Udemy Class Sample - RxJava with sqlite db
 
@@ -31,10 +31,10 @@ RxJavaUdemyClassCaseStudy3 -> Udemy Class Sample - RxJava with Room - Completabl
 
 RxJavaThrottleAllClicks -> Throttle all click events via DataBinding - RxBinding - AndroidX.Lifecycle - BindingAdapter - RxBus - (BONUS)Markdown link format for textview
 
-DependencyInjectionUdemyClass -> Implementation of DI on sample app - Dependency Injection Arhitectural Pattern - Clean Code - Pure DI - MVC - Dagger 2 - MVVM - Dagger HILT - *Includes README*
+DependencyInjectionUdemyClass -> Implementation of DI on sample app - Dependency Injection Arhitectural Pattern - Clean Code - Pure DI - MVC - Dagger 2 - MVVM - Dagger HILT - **Includes README**
 
-KotlinCoroutinesUdemyClass -> Deep information and usage for Kotlin Coroutines - Concurrent coroutines - Structured concurrency - noncancellable coroutines - exception handling - *Includes README*
+KotlinCoroutinesUdemyClass -> Deep information and usage for Kotlin Coroutines - Concurrent coroutines - Structured concurrency - noncancellable coroutines - exception handling - **Includes README**
 
-KotlinFlowsBasics -> Basic information and usage samples for flows - Sequences - Flows - Flow Operators - ThrottleFirstClick with Flow - *Includes README*
+KotlinFlowsBasics -> Basic information and usage samples for flows - Sequences - Flows - Flow Operators - ThrottleFirstClick with Flow - **Includes README**
 
 KotlinFlowsRaywenderlichTutorial -> Flow example on real project - Jectpack - MVVM - Livedata - Mapper - Retrofit - Room - Coroutines - Flows - Exception Handling - BroadcastChannel - Search Query Debounce
