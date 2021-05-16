@@ -33,7 +33,7 @@ However, cold streams, start pushing values only when you start collecting!
 
 ## KOTLIN FLOWS
 
-Flow is a stream that produces values asynchronously.
+Flows are cold, asynchronous streams. Flow is a stream that produces values asynchronously.
 Furthermore, Flow uses coroutines internally. And because of this, it enjoys all the perks of structured concurrency.
 
 When you cancel the scope, you also release any running coroutines. The same rules apply to
@@ -57,8 +57,12 @@ There are two types of operators available inside the Flow – *intermediate* an
 the operation is not executed immediately. Instead, you return the transformed Flow, which is still cold.
 The operations execute only when you invoke a terminal operator on the final stream
 
+e.g. map() - filter() - transform() - take()
+
 *Terminal Operators:* Terminal operators are suspending functions that start the collection of the flow.
 When you invoke a terminal operator, you invoke all the intermediate operators along with it
+
+e.g. toList() - toSet() - first() - reduce() - fold()
 
 ## REFERENCES
 

@@ -14,7 +14,7 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
     private lateinit var myFlow: Flow<Int>
     private lateinit var carFlow: Flow<Car>
-    private lateinit var anotherFlow: Flow<Int>
+    private lateinit var anotherFlow: Flow<Car>
     private lateinit var firstFlow: Flow<String>
     private lateinit var secondFlow: Flow<String>
 
@@ -47,6 +47,24 @@ class MainActivity : AppCompatActivity() {
         }.flowOn(Dispatchers.Default)
     }
 
+    private suspend fun setupReduceFlow() {
+        val result = (1..5).asFlow()
+            .map { it.toString() }
+            .reduce { a, b ->
+                "$a plus $b : ${a.split(" ").last().toInt().plus(b.toInt())}"
+            }
+        Log.d(TAG, "setupReduceFlow: $result")
+    }
+
+    private suspend fun setupAnyFlow() {
+        flowOf(
+            1, "asd", Car("honda", Color.BLUE, 6, 2, false), true
+        ).flowOn(Dispatchers.IO)
+            .collect {
+                Log.d(TAG, "setupAnyFlow: $it")
+            }
+    }
+
     private fun setupFlowOf() {
         carFlow = flowOf(
             Car("honda", Color.BLUE, 6, 2, false),
@@ -70,6 +88,8 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "setupAsFlow: empty")
         }.onStart {
             Log.d(TAG, "setupAsFlow: started")
+        }.map { number ->
+            Car("toyota", Color.GRAY, number, (number % 6).plus(1), true)
         }.flowOn(Dispatchers.Default)
     }
 
@@ -93,11 +113,20 @@ class MainActivity : AppCompatActivity() {
                     anotherFlow.collect {
                         Log.d(TAG, "anotherFlow collect: $it")
                     }
+                    // Flow zip operator example
                     firstFlow.zip(secondFlow) { firstData, secondData ->
                         "$firstData $secondData"
                     }.collect {
                         Log.d(TAG, "zipped flow data: $it")
                     }
+                    setupAnyFlow()
+                    // Flow cancel example
+                    withTimeoutOrNull(1000) {
+                        myFlow.collect {
+                            Log.d(TAG, "myFlow collect withTimeout: $it")
+                        }
+                    }
+                    setupReduceFlow()
                 }
             }.launchIn(GlobalScope)
     }

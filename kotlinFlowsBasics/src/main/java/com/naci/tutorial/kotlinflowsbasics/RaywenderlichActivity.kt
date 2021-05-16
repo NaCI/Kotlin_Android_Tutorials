@@ -1,22 +1,32 @@
 package com.naci.tutorial.kotlinflowsbasics
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlin.system.measureTimeMillis
 
 private const val TAG = "RaywenderlichActivity"
+private const val DELAY = 500L
 
 class RaywenderlichActivity : AppCompatActivity() {
 
-    val namesFlow = flowOf("Jody", "Steve", "Lance", "Joe")
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
+
+    private val namesFlow = flowOf("Jody", "Steve", "Lance", "Mike", "Joe", "Pal", "Hugo")
+    private val bufferSampleFlow = namesFlow
+        .transform { name ->
+            if (name.length < 5) {
+                delay(DELAY)
+                emit(Car(name, Color.BLACK, name.length, 4, false))
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +39,56 @@ class RaywenderlichActivity : AppCompatActivity() {
         findViewById<AppCompatButton>(R.id.button).setOnClickListener {
             processValues()
             flowOperatorSample()
+            bufferSample()
+            catchSample()
+        }
+    }
+
+    private fun catchSample() {
+        coroutineScope.launch {
+            namesFlow
+                .onEach { name ->
+                    check(name.length < 5) {
+                        "Unwanted result : $name"
+                    }
+                    Log.d(TAG, "catchSample: $name")
+                }
+                .catch { e -> Log.d(TAG, "catchSample: Error: $e") }
+                .collect()
+        }
+    }
+
+    private fun bufferSample() {
+        coroutineScope.launch {
+            var time = measureTimeMillis {
+                bufferSampleFlow
+                    .collect { car ->
+                        delay(DELAY * 3)
+                        Log.d(TAG, "bufferSample: car: $car")
+                    }
+            }
+            Log.d(TAG, "bufferSample: collected without buffer in $time ms")
+
+            time = measureTimeMillis {
+                bufferSampleFlow
+                    .buffer()
+                    .collect { car ->
+                        delay(DELAY * 3)
+                        Log.d(TAG, "bufferSample: car: $car")
+                    }
+            }
+
+            Log.d(TAG, "bufferSample: collected WITH buffer in $time ms")
+
+            bufferSampleFlow.collectLatest { car ->
+                delay(DELAY * 3)
+                Log.d(TAG, "collectLatestSample: car: $car")
+            }
         }
     }
 
     private fun flowOperatorSample() {
-        CoroutineScope(Dispatchers.Default).launch {
+        coroutineScope.launch {
             namesFlow.map { name ->
                 name.length
             }.filter { length ->
@@ -55,7 +110,7 @@ class RaywenderlichActivity : AppCompatActivity() {
     }
 
     private fun processValues() {
-        CoroutineScope(Dispatchers.Default).launch {
+        coroutineScope.launch {
             val values = getValues()
             for (value in values) {
                 Log.d(TAG, "processValues: $value")
