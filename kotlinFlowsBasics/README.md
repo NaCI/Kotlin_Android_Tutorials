@@ -64,6 +64,12 @@ When you invoke a terminal operator, you invoke all the intermediate operators a
 
 e.g. toList() - toSet() - first() - reduce() - fold()
 
+## Handle User Events
+
+ConflatedBroadcastChannel is using to handle user input events. Use .offer() method to emit event data.
+
+Or BroadcastChannel<E>(Channel.CONFLATED)
+
 ## REFERENCES
 
 - https://www.raywenderlich.com/9799571-kotlin-flow-for-android-getting-started
