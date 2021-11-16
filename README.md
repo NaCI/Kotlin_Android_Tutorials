@@ -19,6 +19,8 @@ UdacityTutorial8 -> Retrofit - Glide - Coroutines - Moshi - Parcelize - Recycler
 
 UdacityAdvancedTutorial10 -> Unit and Instrumented Tests - Fake - Mock - Espresso
 
+HandlingSoftKeyboard
+
 RxJavaTutorial1 -> Basic RxJava and RxAndroid - Observable - Observer - CompositeDisposable
 
 RxJavaUdemyClass -> Udemy Class Samples - **Includes README**

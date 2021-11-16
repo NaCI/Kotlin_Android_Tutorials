@@ -94,17 +94,17 @@ ext {
 }
 
 buildscript {
-    ext.kotlin_version = '1.4.30'
+    ext.kotlin_version = '1.5.31'
     ext.version_navigation = '1.0.0'
     ext.version_hilt = "2.35"
 
     repositories {
         google()
         jcenter()
-
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:7.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
         classpath"com.google.dagger:hilt-android-gradle-plugin:$version_hilt"
@@ -117,8 +117,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven {
-            url "http://dl.bintray.com/kotlin/kotlin-eap"
+            url "https://dl.bintray.com/kotlin/kotlin-eap"
         }
     }
 }
