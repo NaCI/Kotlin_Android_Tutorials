@@ -14,6 +14,7 @@ import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise2.Exercise2
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise3.Exercise3Fragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise4.Exercise4Fragment
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise6.Exercise6Fragment
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise8.Exercise8Fragment
 import com.naci.tutorial.kotlincoroutinesudemclass.home.HomeFragment
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavController.RootFragmentListener
@@ -104,5 +105,9 @@ class ScreensNavigator(private val fragNavController: FragNavController) {
 
     fun toNonCancellableDemo() {
         fragNavController.pushFragment(NonCancellableDemoFragment.newInstance())
+    }
+
+    fun toParallelDecomposition() {
+        fragNavController.pushFragment(Exercise8Fragment.newInstance())
     }
 }

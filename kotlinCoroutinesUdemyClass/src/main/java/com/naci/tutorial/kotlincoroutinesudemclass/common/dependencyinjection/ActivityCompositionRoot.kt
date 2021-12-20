@@ -13,6 +13,9 @@ import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise1.GetReputa
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise4.FactorialUseCase
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise6.Exercise6BenchmarkUseCase
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise6.PostBenchmarkResultsEndpoint
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise8.FetchAndCacheUsersUseCase
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise8.GetUserEndpoint
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise8.UsersDao
 import com.ncapdevi.fragnav.FragNavController
 
 class ActivityCompositionRoot(
@@ -49,4 +52,10 @@ class ActivityCompositionRoot(
             premiumCustomersEndpoint,
             customersDao
         )
+
+    private val getUserEndpoint get() = GetUserEndpoint()
+
+    private val usersDao get() = UsersDao()
+
+    val fetchAndCacheUserUseCase get() = FetchAndCacheUsersUseCase(getUserEndpoint, usersDao)
 }
