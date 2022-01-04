@@ -16,6 +16,7 @@ import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise6.PostBench
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise8.FetchAndCacheUsersUseCase
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise8.GetUserEndpoint
 import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise8.UsersDao
+import com.naci.tutorial.kotlincoroutinesudemclass.exercises.exercise9.FetchAndCacheUsersUseCaseExercise9
 import com.ncapdevi.fragnav.FragNavController
 
 class ActivityCompositionRoot(
@@ -58,4 +59,10 @@ class ActivityCompositionRoot(
     private val usersDao get() = UsersDao()
 
     val fetchAndCacheUserUseCase get() = FetchAndCacheUsersUseCase(getUserEndpoint, usersDao)
+
+    val fetchAndCacheUserUseCaseExercise9
+        get() = FetchAndCacheUsersUseCaseExercise9(
+            getUserEndpoint,
+            usersDao
+        )
 }

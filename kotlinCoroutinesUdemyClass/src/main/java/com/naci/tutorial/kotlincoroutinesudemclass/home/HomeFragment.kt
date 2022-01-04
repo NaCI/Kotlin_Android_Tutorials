@@ -50,6 +50,7 @@ class HomeFragment : BaseFragment(), HomeArrayAdapter.Listener {
             ScreenReachableFromHome.EXERCISE_6 -> screensNavigator.toExercise6()
             ScreenReachableFromHome.NON_CANCELLABLE_DEMO -> screensNavigator.toNonCancellableDemo()
             ScreenReachableFromHome.EXERCISE_8 -> screensNavigator.toParallelDecomposition()
+            ScreenReachableFromHome.EXERCISE_9 -> screensNavigator.toExercise9()
         }
     }
 

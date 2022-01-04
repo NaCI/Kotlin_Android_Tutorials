@@ -15,4 +15,5 @@ enum class ScreenReachableFromHome(val description: String) {
     EXERCISE_6("Exercise 6"),
     NON_CANCELLABLE_DEMO("Non-Cancellable"),
     EXERCISE_8("Exercise 8"), //  Parallel Decomposition
+    EXERCISE_9("Exercise 9"), //  Thread safe objects
 }

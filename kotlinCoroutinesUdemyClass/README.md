@@ -144,7 +144,7 @@ CoroutinesMechanicsExplorationsTest.coroutineScope_jobsHierarchy()
 
 Until there is no specific declaration made, coroutines uses outer scopes data.
 
-> *withContext* block checks for cancellation signal on the begining and the end of the code lines
+> *withContext* block checks for cancellation signal on the beginning and the end of the code lines
 
 > **IMPORTANT NOTE: **NonCancellable is designed for withContext exclusively!
 
@@ -164,6 +164,23 @@ Nested Coroutine On Standalone Scope Examination
 
 Taking the sequential steps and execute them in parallel - Exercise 8
 
+It speeds up the algorithm
+
+### Shared Mutable State
+
+Changing state of shared object from many thread at the same time which is not thread safe.
+That causes to set incorrect values to that object. (Atomic classes could be answer to that problem
+but it's not correct always) - IncorrectParallelDecompositionDemoTest | AsyncCoroutineBuilderDemoTest
+
+E.g: `totalIterations` variable in "atomicityProblemDemo()" function is Shared Mutable State. That's because it
+defined outside thread but assign value to it in many threads. It is unsafe because some assign operations
+may be misbehave or skip whenever two threads needs to access it at the same time 
+
+In order to solve atomicity problem we need to get rid of shared mutable states. We can return value
+from coroutine job with `async()` and `awaitAll()` methods - Exercise9
+
+> IMPORTANT WARNING : Do not access shared mutable state from concurrent coroutines
+ 
 ## REFERENCES
 
 https://www.udemy.com/course/kotlin-coroutines-in-android
