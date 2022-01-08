@@ -84,7 +84,7 @@ Two methods used to cancel coroutine
 Whenever a coroutine cancelled, a CancellationException thrown - as long as withContext (or delay)
 function is called inside the suspending function.
 
-E.g.
+**E.g**:
 
 ```kotlin
 suspend fun executeBenchmark(benchmarkDurationSeconds: Int) = withContext(Dispatchers.Default) {
@@ -172,7 +172,7 @@ Changing state of shared object from many thread at the same time which is not t
 That causes to set incorrect values to that object. (Atomic classes could be answer to that problem
 but it's not correct always) - IncorrectParallelDecompositionDemoTest | AsyncCoroutineBuilderDemoTest
 
-E.g: `totalIterations` variable in "atomicityProblemDemo()" function is Shared Mutable State. That's because it
+**E.g**: `totalIterations` variable in "atomicityProblemDemo()" function is Shared Mutable State. That's because it
 defined outside thread but assign value to it in many threads. It is unsafe because some assign operations
 may be misbehave or skip whenever two threads needs to access it at the same time 
 
@@ -180,6 +180,54 @@ In order to solve atomicity problem we need to get rid of shared mutable states.
 from coroutine job with `async()` and `awaitAll()` methods - Exercise9
 
 > IMPORTANT WARNING : Do not access shared mutable state from concurrent coroutines
+
+### Coroutines Exception Handling
+
+Exception handling is a bit different than general exception handling in java. 
+Whenever an exception happens inside coroutineScope we can't handle it outside of the scope.
+
+**E.g**: lets assume that loginUseCase is suspend function and throws exception. In that scenario
+below code will not be able to catch the exception
+
+```kotlin
+try {
+    coroutineScope.launch {
+        try {
+            val result = loginUseCase.logIn(getUsername(), getPassword())
+            when (result) {
+                is Result.Success -> onUserLoggedIn(result.user)
+                is Result.InvalidCredentials -> onInvalidCredentials()
+                is Result.GeneralError -> onGeneralError()
+            }
+        } finally {
+            refreshUiState()
+        }
+    }
+} catch (e: Exception) {
+    // handle exception
+}
+```
+
+In order to handle coroutine exceptions use **CoroutineExceptionHandler** class. 
+Either add it to scope or coroutine level - Check **CancellationOnExceptionDemoTest**
+
+**E.g**:
+
+```kotlin
+private val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable -> 
+    onException(throwable)
+}
+private val coroutineScope = CoroutineScope(Dispatchers.Main.immediate + coroutineExceptionHandler)
+// OR 
+coroutineScope.launch(coroutineExceptionHandler) {
+    // do stuff
+}
+```
+
+> All potentially thrown exceptions should be documented!!
+
+> BEST WAY TO DEAL WITH EXCEPTIONS on coroutines is to wrap the method which throws exception on UseCase or Repository layer.
+
  
 ## REFERENCES
 
