@@ -40,3 +40,5 @@ KotlinCoroutinesUdemyClass -> Deep information and usage for Kotlin Coroutines -
 KotlinFlowsBasics -> Basic information and usage samples for flows - Sequences - Flows - Flow Operators - ThrottleFirstClick with Flow - **Includes README**
 
 KotlinFlowsRaywenderlichTutorial -> Flow example on real project - Jectpack - MVVM - Livedata - Mapper - Retrofit - Room - Coroutines - Flows - Exception Handling - BroadcastChannel - Search Query Debounce
+
+WorkManagerCodeLab -> Blur image on as background task with constraints - WorkManager (instead of BroadcastReceiver) - Chain of works - Work constraints - Livedata - MVVM  

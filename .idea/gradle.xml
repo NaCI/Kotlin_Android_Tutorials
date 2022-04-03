@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/kotlinFlowsBasics" />
             <option value="$PROJECT_DIR$/kotlinFlowsRaywenderlichTutorial" />
             <option value="$PROJECT_DIR$/kotlincoroutinecodelab" />
+            <option value="$PROJECT_DIR$/navigationComponentSample" />
             <option value="$PROJECT_DIR$/paging3codelabs" />
             <option value="$PROJECT_DIR$/rxJavaThrottleAllClicks" />
             <option value="$PROJECT_DIR$/rxJavaTutorial1" />
@@ -32,6 +33,7 @@
             <option value="$PROJECT_DIR$/udacitytutorial6" />
             <option value="$PROJECT_DIR$/udacitytutorial7" />
             <option value="$PROJECT_DIR$/udacitytutorial8" />
+            <option value="$PROJECT_DIR$/workManagerCodelab" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
